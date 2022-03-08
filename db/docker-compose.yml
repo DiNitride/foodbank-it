@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+
+  foodbank-db:
+    image: mariadb
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./mount/:/var/lib/mysql
+      - ./sql/:/docker-entrypoint-initdb.d
+    # https://stackoverflow.com/questions/62922399/docker-compose-mariadb-docker-entrypoint-initdb-d-sql-is-not-executed
+    ports:
+      - 3306:3306
+
+  foodbank-adminer:
+    image: adminer
+    links:
+      - 'foodbank-db:db'
+    restart: always
+    ports:
+      - 8080:8080
+
+networks:
+  default:
+    name: foodbank-net
