@@ -26,8 +26,8 @@ export default function Layout({ children }) {
         </div>
         
         <div className={`${menuOpen ? 'flex' : 'hidden'} md:flex flex-col md:flex-row`}>
-          { status === 'authenticated' ? <p>Welcome, {session.user.forename}</p> : "" }
-          <a onClick={handleAuth}>{ status !== 'authenticated' ? 'Sign In' : 'Sign Out'}</a>
+          { status === 'authenticated' ? <p className='px-2'>Welcome, {session.user.forename}</p> : "" }
+          <a className="border rounded" onClick={handleAuth}>{ status !== 'authenticated' ? 'Sign In' : 'Sign Out'}</a>
         </div>
       </nav>
       { children }

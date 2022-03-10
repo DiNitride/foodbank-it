@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
+import { getUserByEmail } from "../../../lib/users"
 
 export default NextAuth({
   session: {
@@ -16,13 +17,14 @@ export default NextAuth({
       },
       async authorize(credentials, req) {
         // CHECKING AGAINST DB HERE !!!!!
-        console.log("Validating login")
-        let user = {
-          id: '1553',
-          forename: 'James',
-          surname: 'Bale'
+        // console.log('Checking login details')
+        // console.log(credentials)
+        let u = await getUserByEmail(credentials.username)
+        // console.log(u)
+        // TODO: Check password
+        if (u) {
+          return u
         }
-        return user
       }
     })
     // ...add more providers here
