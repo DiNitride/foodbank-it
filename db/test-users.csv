@@ -1,0 +1,7 @@
+username,password,type
+admin,password,staff-admin
+staff,staff_pass,staff
+joe@example.com,password123,client
+alex@example.com,password99!,client
+store-jones,iloveshops,organisation-manager
+store-brown,wordpass,organisation

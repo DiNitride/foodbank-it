@@ -1,6 +1,7 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { getUserByEmail } from "../../../lib/users"
+import { getOneUserByUsernameOrEmail, getUserPassword, getUserType } from "../../../lib/users"
+import { verify } from "../../../lib/passwords"
 
 export default NextAuth({
   session: {
@@ -16,15 +17,11 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
-        // CHECKING AGAINST DB HERE !!!!!
-        // console.log('Checking login details')
-        // console.log(credentials)
-        let u = await getUserByEmail(credentials.username)
-        // console.log(u)
-        // TODO: Check password
-        if (u) {
-          return u
-        }
+        let user = await getOneUserByUsernameOrEmail(credentials.username)
+        if (!user) return null
+        let { UserPassword: password } = await getUserPassword(user.UserId)
+        let passwordCorrect = await verify(password, credentials.password)
+        if (passwordCorrect) return user
       }
     })
     // ...add more providers here
@@ -32,7 +29,10 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.user = user
+        console.log('Creating JWT')
+        let type = await getUserType(user.UserId)
+        console.log(type)
+        token.user = { ...user, type: type }
       }
       return token
     },
@@ -40,5 +40,8 @@ export default NextAuth({
       session.user = token.user
       return session
     }
+  },
+  theme: {
+    colorScheme: 'light'
   }
 })
