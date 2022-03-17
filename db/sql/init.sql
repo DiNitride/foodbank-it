@@ -76,6 +76,68 @@ CREATE TABLE `OrganisationStaff` (
   PRIMARY KEY (`StaffId`, `OrganisationId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `CashTransaction` (
+  `TransactionId` int(11) NOT NULL AUTO_INCREMENT,
+  `TransactionFrom` int(11),
+  `TransactionValue` decimal(15, 2) NOT NULL,
+  `TransactionDateTime` datetime,
+  `TransactionStripeRef` varchar(255),
+  PRIMARY KEY (`TransactionId`),
+  CONSTRAINT FOREIGN KEY (`TransactionFrom`) REFERENCES `User` (`UserId`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Feedback` (
+  `FeedbackId` int(11) NOT NULL AUTO_INCREMENT,
+  `FeedbackText` text NOT NULL,
+  `FeedbackFrom` int(11),
+  `FeedbackReviewed` bit NOT NULL,
+  `FeedbackReviewedBy` int(11),
+  PRIMARY KEY (`FeedbackId`),
+  CONSTRAINT FOREIGN KEY (`FeedbackFrom`) REFERENCES `User` (`UserId`) ON DELETE SET NULL,
+  CONSTRAINT FOREIGN KEY (`FeedbackReviewedBy`) REFERENCES `Staff` (`StaffId`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Order` (
+  `OrderId` int(11) NOT NULL AUTO_INCREMENT,
+  `OrderClient` int(11) NOT NULL,
+  `OrderStatus` enum('open', 'ready', 'closed') NOT NULL,
+  `OrderParcel` int(11),
+  PRIMARY KEY (`OrderId`),
+  CONSTRAINT FOREIGN KEY (`OrderClient`) REFERENCES `Client` (`ClientId`) ON DELETE CASCADE,
+  CONSTRAINT FOREIGN KEY (`OrderParcel`) REFERENCES `Parcel` (`ParcelId`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Parcel` (
+  `ParcelId` int(11) NOT NULL AUTO_INCREMENT,
+  `ParcelComplete` bit NOT NULL,
+  PRIMARY KEY (`ParcelId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `ParcelItem` (
+  `ParcelId` int(11) NOT NULL,
+  `StockId` int(11) NOT NULL,
+  CONSTRAINT FOREIGN KEY (`ParcelId`) REFERENCES `Parcel` (`ParcelId`) ON DELETE CASCADE,
+  CONSTRAINT FOREIGN KEY (`StockId`) REFERENCES `Stock` (`StockId`) ON DELETE CASCADE,
+  PRIMARY KEY (`ParcelId`, `StockId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `Stock` (
+  `StockId` int(11) NOT NULL AUTO_INCREMENT,
+  `UnitId` int(11) NOT NULL,
+  `CreatedBy` int(11) NOT NULL,
+  `CreatedOn` datetime NOT NULL,
+  `UseBy` datetime NOT NULL,
+  PRIMARY KEY (`Stockid`),
+  CONSTRAINT FOREIGN KEY (`UnitId`) REFERENCES `StockUnit` (`UnitId`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `StockUnit` (
+  `UnitId` int(11) NOT NULL AUTO_INCREMENT,
+  `UnitName` varchar(255) NOT NULL,
+  `UnitSize` varchar(255) NOT NULL,
+  PRIMARY KEY (`UnitId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Create default admin user and test staff
 INSERT INTO `User`
 VALUES (NULL, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
