@@ -1,5 +1,5 @@
 import { hash } from "../../../lib/passwords"
-import { getOneUserByEmail, insertClient } from "../../../lib/users"
+import { getOneUserByUsernameOrEmail, insertClient } from "../../../lib/users"
 
 export default async function register(req, res) {
   if (req.method !== 'POST') {
@@ -7,7 +7,7 @@ export default async function register(req, res) {
     return
   }
   let user = JSON.parse(req.body)
-  let existingUser = await getOneUserByEmail(user.email)
+  let existingUser = await getOneUserByUsernameOrEmail(user.email)
   if (existingUser) {
     res.status(400).json({ 'error': 'A user with this email already exists' })
     return

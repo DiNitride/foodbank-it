@@ -123,8 +123,8 @@ export async function getOneClientById(id) {
 
 
 export async function insertClient({ forename, surname, username, password, address_line_one, address_line_two, address_town, address_postcode, phone, email }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
-  await db.query('INSERT INTO `Client` VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?);', [address_line_one, address_line_two, address_town, address_postcode, phone, email])
+  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, email, password])
+  await db.query('INSERT INTO `Client` VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?, ?);', [address_line_one, address_line_two, address_town, address_postcode, phone, email])
   db.end()
   return true
 }

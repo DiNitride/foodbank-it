@@ -9,11 +9,6 @@ export default function Layout({ children }) {
   let [menuOpen, toggleMenu] = useToggle(false)
   let navBarRef = useRef(null)
   let { data: session, status } = useSession()
-  console.log(session)
-
-  useEffect(() => {
-    console.log(status)
-  }, [status])
 
   let navigationLinks = {
     'Donate': '/donate',

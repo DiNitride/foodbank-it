@@ -17,7 +17,9 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
+        console.log('== LOGIN FLOW ==')
         let user = await getOneUserByUsernameOrEmail(credentials.username)
+        console.log(user)
         if (!user) return null
         let { UserPassword: password } = await getUserPassword(user.UserId)
         let passwordCorrect = await verify(password, credentials.password)
