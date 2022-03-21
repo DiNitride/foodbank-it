@@ -3,10 +3,16 @@ import { SessionProvider } from 'next-auth/react'
 import { SWRConfig } from 'swr'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faBuilding, faEnvelope, faPhone, faStore, faUserGroup } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
- faBars
+ faBars,
+ faEnvelope,
+ faPhone,
+ faBuilding,
+ faUserGroup,
+ faBox,
+ faStore
 )
 
 // https://next-auth.js.org/getting-started/example
@@ -15,10 +21,26 @@ function MyApp({
   Component,
   pageProps: { session, ...pageProps }
 }) {
+
+  // https://swr.vercel.app/docs/error-handling#status-code-and-error-object
+  let fetcher = async (url) => {
+    let res = await fetch(url)
+    if (!res.ok) {
+      let { error: message } = await res.json()
+      let error = new Error('An error occured')
+      error.info = message
+      error.status = res.status
+      throw error
+    }
+
+    let data = await res.json()
+    return data
+  }
+
   return (
     <SessionProvider session={session}>
       <SWRConfig value={{
-        fetcher: (url) => fetch(url).then(r => r.json()) 
+        fetcher: fetcher
       }}>
         <Component {...pageProps} />
       </SWRConfig>

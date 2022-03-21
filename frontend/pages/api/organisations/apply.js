@@ -7,6 +7,7 @@ export default async function register(req, res) {
     return
   }
   let org = JSON.parse(req.body)
+  console.log(org)
   await insertOrganisation(org)
   res.status(201).json({ success: true })
 }

@@ -9,15 +9,17 @@ export default function Layout({ children }) {
   let [menuOpen, toggleMenu] = useToggle(false)
   let navBarRef = useRef(null)
   let { data: session, status } = useSession()
-  console.log(session)
-
-  useEffect(() => {
-    console.log(status)
-  }, [status])
 
   let navigationLinks = {
     'Donate': '/donate',
     'Partners': '/partners'
+  }
+
+  if (session && session.user.type === 'client') {
+    navigationLinks = {
+      ...navigationLinks,
+      'View Parcels': '/parcels'
+    }
   }
 
   if (session && session.user.type === 'staff') {
@@ -27,10 +29,24 @@ export default function Layout({ children }) {
     }
   }
 
-  if (session && session.user.type === 'staff') {
+  if (session && session.user.type === 'partner' && session.user.orgType === 'support') {
     navigationLinks = {
       ...navigationLinks,
-      'Dashboard': '/dashboard'
+      'Referals': '/referals'
+    }
+  }
+
+  if (session && session.user.type === 'partner' && session.user.orgType === 'supplier') {
+    navigationLinks = {
+      ...navigationLinks,
+      'Submit Inventory': '/donate-stock'
+    }
+  }
+
+  if (session && session.user.type === 'partner' && session.user.manager) {
+    navigationLinks = {
+      ...navigationLinks,
+      'Organisation Dashboard': '/organisation-dashboard'
     }
   }
 
@@ -48,7 +64,7 @@ export default function Layout({ children }) {
   }, [navBarRef])
 
   return (
-    <div className="h-screen bg-primary">
+    <div className="min-h-screen bg-primary">
       <div ref={navBarRef} className='w-full flex flex-col relative bg-primary z-10 top-0 md:flex-row md:justify-between shadow'>
         <div className='flex justify-between border-b md:border-b-0 p-2 items-center '>
           <div>
@@ -71,7 +87,7 @@ export default function Layout({ children }) {
           </div>
         </nav>
       </div>
-      <main className=''>
+      <main className='min-h-full'>
         { children }
       </main>
     </div>

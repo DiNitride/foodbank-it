@@ -16,22 +16,47 @@ function FormItem({ onChange, label, type, name, value, placeholder, required })
 
 export default function Apply() {
   let { data: session, status } = useSession()
-  let [error, setError] = useState('')
+  let [errors, setErrors] = useState([])
   let [applicationComplete, setApplicationComplete] = useState(false)
   let [organisation, setOrganisation] = useState({
-    applicant_forename: "",
-    applicant_surname: "",
-    applicant_phone: "",
-    applicant_email: "",
-    
     org_name: "",
-    org_type: "supporting",
+    org_type: "support",
     org_description: "",
     org_address_line_one: "",
     org_address_line_two: "",
     org_address_town: "",
     org_address_postcode: "",
+    applicant_forename: "",
+    applicant_surname: "",
+    applicant_phone: "",
+    applicant_email: "",
   })
+  let validators ={
+    org_name: RegExp('^[a-zA-Z0-9\\s:!?-_]+$'),
+    org_type: RegExp('^.*$'),
+    org_description: RegExp('[a-zA-Z\\s:!?-_]+'),
+    org_address_line_one: RegExp('^[a-zA-Z0-9\\s,]+$'),
+    org_address_line_two: RegExp('^[a-zA-Z0-9\\s,]?$'),
+    org_address_town: RegExp('^[a-zA-Z]+$'),
+    org_address_postcode: RegExp('^[a-zA-Z]{2}[0-9]{1,2}\\s?[0-9]{1}[a-zA-Z]{2}$'),
+    applicant_forename: RegExp('^[a-zA-Z]+$'),
+    applicant_surname: RegExp('^[a-zA-Z-]+$'),
+    applicant_email: RegExp('^[a-zA-Z0-9.-_]+@[a-zA-Z0-9-_.]+\\.[a-zA-Z]+$'),
+    applicant_phone: RegExp('^[0-9]{10,11}$')
+  }
+  let validatorsErrors ={
+    applicant_forename: 'Invalid Forename',
+    applicant_surname: 'Invalid Surname',
+    applicant_phone: 'Invalid Phone',
+    applicant_email: 'Invalid Email Address',
+    org_name: 'Invalid Organisation Name',
+    org_type: 'Invalid Organisation Type',
+    org_description: 'Invalid Description',
+    org_address_line_one: 'Invalid Address Line One',
+    org_address_line_two: 'Invalid Address Line Two',
+    org_address_town: 'Invalid Address Town',
+    org_address_postcode: 'Invalid Postcode',
+  }
 
   let handleChange = (e) => {
     setOrganisation({
@@ -41,9 +66,20 @@ export default function Apply() {
   }
 
   let handleSubmit = async (e) => {
-    console.log('Sending application')
-    console.log(organisation)
     e.preventDefault()
+    let errors = []
+    for (let [key, value] of Object.entries(organisation)) {
+      if (!validators[key].test(value)) {
+        errors.push(validatorsErrors[key])
+      }
+    }
+
+    if (errors.length !== 0) {
+      setErrors(errors)
+      return
+    }
+
+    
     let r = await fetch('/api/organisations/apply', {
       method: 'POST',
       body: JSON.stringify(organisation)
@@ -53,7 +89,7 @@ export default function Apply() {
       setError('Something went wrong... Please refresh and try again')
     }
     if (success) setApplicationComplete(true)
-    if (error) setError(error)
+    if (error) setError([ error ])
   }
 
   return (
@@ -61,7 +97,7 @@ export default function Apply() {
       <Head>
         <title>Apply to become a Partner</title>
       </Head>
-      <div className='md:mt-5 flex justify-center'>
+      <div className='m-2 flex justify-center'>
         { !applicationComplete ?
         <form onSubmit={handleSubmit} className='border rounded p-2 w-full md:w-1/3 flex flex-col align-middle justify-center'>
           <p className='text-center mt-2'>Agency Information</p>
@@ -69,11 +105,11 @@ export default function Apply() {
           <div className='flex flex-col m-2'>
             <label className={'after:content-[\'*\'] after:ml-0.5 after:text-red-500'}>Agency Type</label>
             <div>
-              <label for='supplier' className='mr-2'>Supplier Business</label>
+              <label className='mr-2'>Supplier Business</label>
               <input type='radio' id='supplier' name='org_type' value='supplier' checked={organisation.org_type === 'supplier'} onChange={handleChange} />
               <br />
-              <label for='supplier' className='mr-2'>Supporting Agency</label>
-              <input type='radio' id='support' name='org_type' value='support' checked={organisation.org_type === 'supporting'} onChange={handleChange} />
+              <label className='mr-2'>Supporting Agency</label>
+              <input type='radio' id='support' name='org_type' value='support' checked={organisation.org_type === 'support'} onChange={handleChange} />
             </div>
           </div>
           <div className='flex flex-col m-2'>
@@ -84,13 +120,14 @@ export default function Apply() {
           <FormItem onChange={handleChange} type='text' label='Address Line Two' name='org_address_line_two' value={organisation.org_address_line_two} placeholder='' />
           <FormItem onChange={handleChange} type='text' label='Town' name='org_address_town' value={organisation.org_address_town} placeholder='' required />
           <FormItem onChange={handleChange} type='text' label='Postcode' name='org_address_postcode' value={organisation.org_address_postcode} placeholder='' required />
-          <FormItem onChange={handleChange} type='textarea' label='Postcode' name='org_address_postcode' value={organisation.org_address_postcode} placeholder='' required />
           <p className='text-center mt-2'>Representative Details</p>
           <FormItem onChange={handleChange} type='text' label='Forename' name='applicant_forename' value={organisation.applicant_forename} placeholder='Joe' required/>
           <FormItem onChange={handleChange} type='text' label='Surname' name='applicant_surname' value={organisation.applicant_surname} placeholder='Bloggs' required />
           <FormItem onChange={handleChange} type='text' label='Email' name='applicant_email' value={organisation.applicant_email} placeholder='joe.blogs@example.com' required />
           <FormItem onChange={handleChange} type='text' label='Phone' name='applicant_phone' value={organisation.applicant_phone} placeholder='' required />
-          { error !== '' ? <p className='text text-red-500 text-center p-2'>{ error }</p> : ""}
+          { errors !== [] ? errors.map((error, i) => (
+            <p key={i} className='text text-red-500 text-center p-2'>{ error }</p>
+          )) : ""}
           <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Apply</button>
         </form>
         :

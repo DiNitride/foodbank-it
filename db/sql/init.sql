@@ -33,7 +33,7 @@ CREATE TABLE `Client` (
 
 CREATE TABLE `Staff` (
   `StaffId` int(11) NOT NULL,
-  `Admin` bit NOT NULL,
+  `Admin` tinyint NOT NULL,
   PRIMARY KEY (`StaffID`),
   CONSTRAINT FOREIGN KEY (`StaffId`) REFERENCES `User` (`UserId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `ReferralCode` (
   `Code` varchar(25) NOT NULL,
   `AssignedName` varchar(255) NOT NULL,
   `ClaimedBy` int(11) DEFAULT NULL,
-  `Redeemed` bit(1) NOT NULL,
+  `Redeemed` tinyint(1) NOT NULL,
   PRIMARY KEY (`CodeId`),
   KEY `ClaimedBy` (`ClaimedBy`),
   CONSTRAINT FOREIGN KEY (`ClaimedBy`) REFERENCES `User` (`UserId`) ON DELETE SET NULL
@@ -57,7 +57,7 @@ CREATE TABLE `Organisation` (
   `OrganisationAddressTown` varchar(255) NOT NULL,
   `OrganisationAddressPostcode` varchar(255) NOT NULL,
   `OrganisationDescription` text NOT NULL,
-  `OrganisationApproved` bit NOT NULL,
+  `OrganisationApproved` tinyint NOT NULL,
   `OrganisationManagerId` int(11),
   `OrganisationType` enum('supplier','support') NOT NULL,
   `OrganisationApplicantForename` varchar(255) NOT NULL,
@@ -90,7 +90,7 @@ CREATE TABLE `Feedback` (
   `FeedbackId` int(11) NOT NULL AUTO_INCREMENT,
   `FeedbackText` text NOT NULL,
   `FeedbackFrom` int(11),
-  `FeedbackReviewed` bit NOT NULL,
+  `FeedbackReviewed` tinyint NOT NULL,
   `FeedbackReviewedBy` int(11),
   PRIMARY KEY (`FeedbackId`),
   CONSTRAINT FOREIGN KEY (`FeedbackFrom`) REFERENCES `User` (`UserId`) ON DELETE SET NULL,
@@ -109,7 +109,7 @@ CREATE TABLE `Order` (
 
 CREATE TABLE `Parcel` (
   `ParcelId` int(11) NOT NULL AUTO_INCREMENT,
-  `ParcelComplete` bit NOT NULL,
+  `ParcelComplete` tinyint NOT NULL,
   PRIMARY KEY (`ParcelId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -162,9 +162,6 @@ VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY123 AB
 INSERT INTO `User`
 VALUES (NULL, 'Manager', 'Store', 'store-manager', '$argon2i$v=19$m=4096,t=3,p=1$ZPZUJvX29LwTmXbgF7xTag$wqSwJpn6gUXzSWLESgb9ZtLgdc/FplRjQQoaeCxPstY');
 
-INSERT INTO `User`
-VALUES (NULL, 'Employee', 'Store', 'store-employee', '$argon2i$v=19$m=4096,t=3,p=1$5G6AERealOYTQC1QIodnNg$zsZVpxAnsUu3pykO6b0Fe6YRmxK3CCC08IWTm9LO6SI');
-
 INSERT INTO `Organisation`
 VALUES (
   NULL,
@@ -182,6 +179,9 @@ VALUES (
   'manager@store.com',
   '07999333222'
 );
+
+INSERT INTO `User`
+VALUES (NULL, 'Employee', 'Store', 'store-employee', '$argon2i$v=19$m=4096,t=3,p=1$5G6AERealOYTQC1QIodnNg$zsZVpxAnsUu3pykO6b0Fe6YRmxK3CCC08IWTm9LO6SI');
 
 INSERT INTO `OrganisationStaff`
 VALUES (5, 1);

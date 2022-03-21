@@ -1,7 +1,12 @@
 import db from './db'
+import { hash } from './passwords'
 
 export async function getOrganisations() {
-  let r = await db.query('SELECT * FROM `Organisation`')
+  let r = await db.query('SELECT Organisation.*, \
+  User.UserForename AS OrganisationManagerForename \
+  FROM `Organisation` \
+  JOIN `User` ON Organisation.OrganisationManagerId = User.UserId \
+  WHERE OrganisationApproved = 1')
   return r
 }
 
@@ -35,7 +40,18 @@ export async function insertOrganisation(organisation) {
 }
 
 export async function approveOrganisation(id) {
-  await db.query('UPDATE `Organisation` SET OrganisationApproved = 1 WHERE OrganisationId = ?', [id])
+  console.log('Approving organsation')
+  let org = await getOneOrganisationById(id)
+  let password = await hash('password')
+  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?)', [org.OrganisationApplicantForename, org.OrganisationApplicantSurname, `${org.OrganisationApplicantForename}.${org.OrganisationApplicantSurname}`, password])
+  await db.query('INSERT INTO `OrganisationStaff` VALUES (LAST_INSERT_ID(), ?)', [id])
+  await db.query('UPDATE `Organisation` SET OrganisationApproved = 1, OrganisationManagerId = LAST_INSERT_ID() WHERE OrganisationId = ?', [id])
+  db.end()
+  return true
+}
+
+export async function deleteOrganisation(id) {
+  await db.query('DELETE FROM `Organisation` WHERE OrganisationId = ? ', [id])
   db.end()
   return true
 }

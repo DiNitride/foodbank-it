@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
-import { getOneUserByUsernameOrEmail, getUserPassword, getUserType } from "../../../lib/users"
+import { getOneUserByUsernameOrEmail, getUserPassword, getUserDetails } from "../../../lib/users"
 import { verify } from "../../../lib/passwords"
 
 export default NextAuth({
@@ -17,9 +17,15 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
+        console.log('= LOGIN FLOW =')
         let user = await getOneUserByUsernameOrEmail(credentials.username)
-        if (!user) return null
+        if (!user) {
+          console.log(`No user found with username or email of ${credentials.username}`)
+          return null
+        }
+        console.log(`Found user ${user.UserUsername}`)
         let { UserPassword: password } = await getUserPassword(user.UserId)
+        console.log(`Got password: ${password}`)
         let passwordCorrect = await verify(password, credentials.password)
         if (passwordCorrect) return user
       }
@@ -29,10 +35,9 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log('Creating JWT')
-        let type = await getUserType(user.UserId)
-        console.log(type)
-        token.user = { ...user, type: type }
+        console.log('Populating JWT')
+        let details = await getUserDetails(user.UserId)
+        token.user = { ...user, ...details }
       }
       return token
     },

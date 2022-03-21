@@ -1,4 +1,5 @@
 import db from "./db";
+import { hash } from "./passwords";
 
 /* Get all users */
 export async function getUsers() {
@@ -10,150 +11,90 @@ export async function getUsers() {
 export async function getOneUserById(id) {
   let r = await db.query('SELECT * FROM User WHERE UserId = ?', [id])
   db.end()
-  if (r.length > 0) return r[0]
-  return null
+  return r[0]
 }
 
-export async function updateUser(user) {
-  
+export async function getOneUserByUsername(username) {
+  let r = await db.query('SELECT * FROM User WHERE UserUsername = ?', [username])
+  db.end()
+  return r[0]
 }
 
 export async function getOneUserByUsernameOrEmail(query) {
   let r = await db.query('SELECT User.UserId, User.UserForename, User.UserSurname, User.UserUsername FROM User LEFT JOIN Client ON User.UserId = Client.ClientId WHERE User.UserUsername = ? OR Client.ClientEmail = ?;', [query, query])
   db.end()
-  if (r.length > 0) return r[0]
-  return null
+  return r[0]
 }
 
 export async function getUserPassword(id) {
   let r = await db.query('SELECT User.UserPassword FROM User WHERE User.UserId = ?', [id])
   db.end()
-  if (r.length > 0) return r[0]
-  return null
+  return r[0]
 }
 
-export async function getUserType(userId) {
+export async function getUserDetails(userId) {
   console.log(`Calculating user type for ${userId}`)
-  let r = await db.query('SELECT User.UserID, Client.ClientId, Staff.StaffId, OrganisationStaff.StaffId AS OrgStaffId \
+  let details = {}
+  let r = await db.query('SELECT \
+  User.UserID, \
+  Client.ClientId, \
+  Staff.StaffId, \
+  Staff.Admin, \
+  OrganisationStaff.StaffId AS OrgStaffId, \
+  OrganisationStaff.OrganisationId AS OrgId, \
+  Organisation.OrganisationType AS OrgType, \
+  IF(User.UserID = Organisation.OrganisationManagerId, 1, 0) AS OrgManager \
   FROM User \
   LEFT JOIN Client ON User.UserId = Client.ClientId \
   LEFT JOIN Staff ON User.UserId = Staff.StaffId \
   LEFT JOIN OrganisationStaff ON User.UserId = OrganisationStaff.StaffId \
+  LEFT JOIN Organisation ON OrganisationStaff.StaffId = Organisation.OrganisationManagerId \
   WHERE User.UserId = ?', [userId])
-  console.log(r)
   let user = r[0]
-  if (user.ClientId !== null) { return 'client' }
-  if (user.StaffId !== null) { return 'staff' }
-  if (user.OrgStaffId !== null) { return 'partner' }
+  if (user.ClientId !== null) {
+    console.log('Type Client')
+    details = {
+      ...details,
+      type: 'client'
+    }
+  }
+  if (user.StaffId !== null) {
+    console.log('Type Staff')
+    console.log(user.Admin)
+    details = {
+      ...details,
+      type: 'staff',
+      admin: user.Admin === 1 ? true : false
+    }
+  }
+  if (user.OrgStaffId !== null) {
+    console.log('Type Partner')
+    details = {
+      ...details,
+      type: 'partner',
+      org: user.OrgId,
+      manager: user.OrgManager === 1 ? true : false,
+      orgType: user.OrgType
+    }
+  }
+  return details
 }
 
-/* Manage Client */
-export async function getClients() {
-  let r = await db.query('SELECT \
-  User.UserForename, \
-  User.Userurname, \
-  User.UserUsernamea, \
-  Client.ClientAddressLineOne, \
-  Client.ClientAddressLineTwo, \
-  Client.ClientAddressTown, \
-  Client.ClientAddressPostcode, \
-  Client.ClientPhone \
-  FROM User \
-  JOIN Client ON User.UserId = Client.ClientId')
-  db.end()
-  return r
-}
-
-export async function getOneClientByEmail(email) {
-  let r = await db.query('SELECT \
-  User.UserForename, \
-  User.UserSurname, \
-  User.UserUsername, \
-  Client.ClientAddressLineOne, \
-  Client.ClientAddressLineTwo, \
-  Client.ClientAddressTown, \
-  Client.ClientAddressPostcode, \
-  Client.ClientPhone \
-  Client.ClientEmail \
-  FROM User \
-  JOIN Client ON User.UserId = Client.ClientId \
-  WHERE Client.ClientEmail = ?', [email])
-  db.end()
-  if (r.length > 0) return r[0]
-  return null
-}
-
-export async function getOneClientByUsername(username) {
-  let r = await db.query('SELECT \
-  User.UserForename, \
-  User.UserSurname, \
-  User.UserUsername, \
-  Client.ClientAddressLineOne, \
-  Client.ClientAddressLineTwo, \
-  Client.ClientAddressTown, \
-  Client.ClientAddressPostcode, \
-  Client.ClientPhone \
-  Client.ClientEmail \
-  FROM User \
-  JOIN Client ON User.UserId = Client.ClientId \
-  WHERE User.UserUsername = ?', [username])
-  db.end()
-  if (r.length > 0) return r[0]
-  return null
-}
-
-export async function getOneClientById(id) {
-  let r = await db.query('SELECT \
-  User.UserForename, \
-  User.UserSurname, \
-  User.UserUsername, \
-  Client.ClientAddressLineOne, \
-  Client.ClientAddressLineTwo, \
-  Client.ClientAddressTown, \
-  Client.ClientAddressPostcode, \
-  Client.ClientPhone \
-  Client.ClientEmail \
-  FROM User \
-  JOIN Client ON User.UserId = Client.ClientId \
-  WHERE Client.ClientId = ?', [id])
-  db.end()
-  if (r.length > 0) return r[0]
-  return null
-}
-
-
-export async function insertClient({ forename, surname, username, password, address_line_one, address_line_two, address_town, address_postcode, phone, email }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
-  await db.query('INSERT INTO `Client` VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?);', [address_line_one, address_line_two, address_town, address_postcode, phone, email])
-  db.end()
-  return true
-}
-
-
-/* Manage staff */
-export async function getStaff() {
-  let r = await db.query('SELECT * FROM User JOIN Staff ON User.UserId = Staff.StaffId')
-  db.end()
-  return r
-}
-
-export async function getOneStaffById(id) {
-  let r = await db.query('SELECT * FROM User JOIN Staff ON User.UserId = Staff.StaffId WHERE Staff.StaffId = ?', [userId])
-  db.end()
-  if (r.length > 0) return r[0]
-  return null
-}
-
-export async function insertStaff({ forename, surname, username, password }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
-  await db.query('INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 0)')
-  db.end()
-  return true
-}
-
-export async function insertAdmin({ forename, surname, username, password }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
-  await db.query('INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 1)')
-  db.end()
-  return true
+export async function generateNewUser(forename, surname, password) {
+  console.log('Creating new user...')
+  let hashedPassword = await hash(password)
+  let username = ""
+  let uniqueUsername = false
+  do {
+    username = `${forename.toLowerCase().replace(' ', '-')}.${surname.toLowerCase().replace(' ', '-')}`
+    let existing = await getOneUserByUsername(username)
+    if (!existing) { uniqueUsername = true }
+  } while (!uniqueUsername)
+  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?)', [forename, surname, username, hashedPassword])
+  return {
+    forename: forename,
+    surname: surname,
+    password: password,
+    username: username
+  }
 }
