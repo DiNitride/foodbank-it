@@ -88,7 +88,7 @@ export default function Register() {
   return (
     <Layout>
       <Head>
-        <title>Register personal account</title>
+        <title>Register</title>
       </Head>
       <div className='m-2 flex justify-center'>
         { !registered ?

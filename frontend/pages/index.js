@@ -14,6 +14,9 @@ export default function Home({ splash }) {
 
   return (
     <Layout>
+      <Head>
+        <title>Foodbank</title>
+      </Head>
       <div className='flex flex-col'>
         <div className='w-full p-5'>
           <h1 className='text-xl mb-3 font-semibold'>Website Banner Text</h1>

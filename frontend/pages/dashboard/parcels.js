@@ -7,6 +7,9 @@ export default function Parcels({}) {
 
   return (
     <Layout>
+      <Head>
+        <title>Parcels</title>
+      </Head>
       <DashboardLayout>
         <div className='m-2 flex flex-col items-center'>
           <h1 className='text-xl font-bold'>Parcels</h1>

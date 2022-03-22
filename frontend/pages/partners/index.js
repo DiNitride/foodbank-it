@@ -11,6 +11,9 @@ export default function Partners() {
 
   return (
     <Layout>
+      <Head>
+        <title>Partners</title>
+      </Head>
       <div className='flex flex-col'>
         <div className='w-full p-5'>
           <h1 className='text-xl mb-3 font-semibold'>Partner Agencies</h1>

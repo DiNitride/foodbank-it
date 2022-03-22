@@ -7,6 +7,9 @@ export default function Inventory({}) {
 
   return (
     <Layout>
+      <Head>
+        <title>Inventory</title>
+      </Head>
       <DashboardLayout>
         <div className='m-2 flex flex-col items-center'>
           <h1 className='text-xl font-bold'>Inventory</h1>

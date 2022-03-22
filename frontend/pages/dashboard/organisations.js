@@ -22,6 +22,9 @@ export default function Organisations({}) {
 
   return (
     <Layout>
+      <Head>
+        <title>Organisations</title>
+      </Head>
       <DashboardLayout>
         <div className='m-2 flex flex-col'>
           <h1 className='text-xl font-bold text-center'>Organisations</h1>

@@ -7,6 +7,9 @@ export default function Users({}) {
 
   return (
     <Layout>
+      <Head>
+        <title>Staff</title>
+      </Head>
       <DashboardLayout>
         <div className='m-2 flex flex-col'>
           <h1 className='text-xl font-bold text-center'>Staff</h1>

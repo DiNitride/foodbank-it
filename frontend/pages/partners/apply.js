@@ -95,7 +95,7 @@ export default function Apply() {
   return (
     <Layout>
       <Head>
-        <title>Apply to become a Partner</title>
+        <title>Partner Application</title>
       </Head>
       <div className='m-2 flex justify-center'>
         { !applicationComplete ?
