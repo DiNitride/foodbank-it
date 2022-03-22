@@ -140,7 +140,7 @@ CREATE TABLE `StockUnit` (
 
 -- Create default admin user and test staff
 INSERT INTO `User`
-VALUES (NULL, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
+VALUES (NULL, 'Admin', 'User', 'admin', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
 INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 1);
 
 INSERT INTO `User`

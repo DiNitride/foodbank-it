@@ -9,7 +9,7 @@ export async function getClients() {
   Client.ClientAddressLineOne, \
   Client.ClientAddressLineTwo, \
   Client.ClientAddressTown, \
-  Client.ClientPostcode, \
+  Client.ClientAddressPostcode, \
   Client.ClientPhone, \
   Client.ClientEmail \
   FROM User \
