@@ -1,6 +1,7 @@
 import useSWR from "swr"
 import DashboardLayout from "../../components/DashboardLayout"
 import Layout from "../../components/Layout"
+import Head from 'next/head'
 
 export default function Users({}) {
   let { data: users, error: errorUsers } = useSWR('/api/clients')
