@@ -18,7 +18,8 @@ export default function Layout({ children }) {
   if (session && session.user.type === 'client') {
     navigationLinks = {
       ...navigationLinks,
-      'View Parcels': '/parcels'
+      'Orders': '/orders',
+      'Parcels': '/parcels'
     }
   }
 
@@ -76,7 +77,7 @@ export default function Layout({ children }) {
         <nav className={`${menuOpen ? 'flex' : 'hidden'} absolute w-full top-full md:static md:w-auto bg-primary font-thin md:flex flex-col md:flex-row p-2 md:items-baseline shadow md:shadow-none`}>
           {
             Object.entries(navigationLinks).map(([label, url]) => (
-              <Link key={url} href={url}><a className='p-3 rounded-xl hover:shadow after:block after:absolute after:w-[2px] after:content-[""] after:bg-secondary'>{ label }</a></Link>
+              <Link key={url} href={url}><a className='p-3 whitespace-nowrap rounded-xl hover:shadow after:block after:absolute after:w-[2px] after:content-[""] after:bg-secondary'>{ label }</a></Link>
             ))
           }
           <div className='flex flex-row justify-evenly w-full mt-2 md:mt-0 ml-0 md:ml-1'>

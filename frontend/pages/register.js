@@ -34,8 +34,8 @@ export default function Register() {
     email: RegExp('^[a-zA-Z0-9.-_]+@[a-zA-Z0-9-_.]+\\.[a-zA-Z]+$'),
     phone: RegExp('^[0-9]{10,11}$'),
     password: RegExp('^.*$'),
-    address_line_one: RegExp('^[a-zA-Z,]+$'),
-    address_line_two: RegExp('^[a-zA-Z]+$'),
+    address_line_one: RegExp('^[a-zA-Z0-9,\\s]+$'),
+    address_line_two: RegExp('^[a-zA-Z0-9,\\s]?$'),
     address_town: RegExp('^[a-zA-Z]+$'),
     address_postcode: RegExp('^[a-zA-Z]{2}[0-9]{1,2}\\s?[0-9]{1}[a-zA-Z]{2}$'),
   }
@@ -48,7 +48,7 @@ export default function Register() {
     address_line_two: "Invalid Address Line Two",
     address_town: "Invalid Address Town",
     address_postcode: "Invalid Postcode",
-    phone: "",
+    phone: "Invalid phone number",
   }
   let [registered, setRegistered] = useState(false)
 
@@ -79,10 +79,10 @@ export default function Register() {
     })
     let { success, error } = await r.json()
     if (!r.ok && !error) {
-      setError('Something went wrong... Please refresh and try again')
+      setErrors('Something went wrong... Please refresh and try again')
     }
     if (success) setRegistered(true)
-    if (error) setError([ error ])
+    if (error) setErrors([ error ])
   }
 
   return (

@@ -24,7 +24,7 @@ CREATE TABLE `Client` (
   `ClientAddressLineOne` varchar(255) NOT NULL,
   `ClientAddressLineTwo` varchar(255) NOT NULL,
   `ClientAddressTown` varchar(255) NOT NULL,
-  `ClientPostcode` varchar(255) NOT NULL,
+  `ClientAddressPostcode` varchar(255) NOT NULL,
   `ClientPhone` varchar(255) NOT NULL,
   `ClientEmail` varchar(255) NOT NULL,
   PRIMARY KEY (`ClientId`),

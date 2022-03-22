@@ -13,15 +13,15 @@ export async function getOneStaffById(id) {
   return null
 }
 
-export async function insertStaff({ forename, surname, username, password }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
+export async function insertStaff({ forename, surname, password }) {
+  await generateNewUser(forename, surname, password)
   await db.query('INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 0)')
   db.end()
   return true
 }
 
-export async function insertAdmin({ forename, surname, username, password }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
+export async function insertAdmin({ forename, surname, password }) {
+  await generateNewUser(forename, surname, password)
   await db.query('INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 1)')
   db.end()
   return true

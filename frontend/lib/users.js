@@ -21,7 +21,8 @@ export async function getOneUserByUsername(username) {
 }
 
 export async function getOneUserByUsernameOrEmail(query) {
-  let r = await db.query('SELECT User.UserId, User.UserForename, User.UserSurname, User.UserUsername FROM User LEFT JOIN Client ON User.UserId = Client.ClientId WHERE User.UserUsername = ? OR Client.ClientEmail = ?;', [query, query])
+  console.log(query)
+  let r = await db.query('SELECT User.UserId, User.UserForename, User.UserSurname, User.UserUsername FROM User LEFT JOIN Client ON User.UserId = Client.ClientId WHERE User.UserUsername = ? OR Client.ClientEmail = ?', [query, query])
   db.end()
   return r[0]
 }
@@ -82,15 +83,23 @@ export async function getUserDetails(userId) {
 
 export async function generateNewUser(forename, surname, password) {
   console.log('Creating new user...')
+  console.log({ forename, surname, password })
   let hashedPassword = await hash(password)
   let username = ""
   let uniqueUsername = false
   do {
-    username = `${forename.toLowerCase().replace(' ', '-')}.${surname.toLowerCase().replace(' ', '-')}`
+    console.log('Generating username')
+    let number = Math.round(Math.random() * 100)
+    username = `${forename.toLowerCase().replace(' ', '-')}.${surname.toLowerCase().replace(' ', '-')}.${number}`
+    console.log(`Generated ${username}`)
     let existing = await getOneUserByUsername(username)
-    if (!existing) { uniqueUsername = true }
+    if (!existing) {
+      uniqueUsername = true
+      console.log('Username unique!')
+    }
   } while (!uniqueUsername)
   await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?)', [forename, surname, username, hashedPassword])
+  console.log('Added user')
   return {
     forename: forename,
     surname: surname,

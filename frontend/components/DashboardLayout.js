@@ -20,6 +20,7 @@ export default function DashboardLayout({ children }) {
   let apps = [
     {title: "Inventory", icon: 'store', href: '/dashboard/inventory'},
     {title: "Parcels", icon: 'box', href: '/dashboard/parcels'},
+    {title: "Users", icon: 'user-group', href: '/dashboard/users'},
   ]
 
   if (session.user.admin) {

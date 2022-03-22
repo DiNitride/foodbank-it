@@ -1,5 +1,6 @@
 import db from './db'
 import { hash } from './passwords'
+import { generateNewUser } from './users'
 
 export async function getOrganisations() {
   let r = await db.query('SELECT Organisation.*, \
@@ -42,8 +43,7 @@ export async function insertOrganisation(organisation) {
 export async function approveOrganisation(id) {
   console.log('Approving organsation')
   let org = await getOneOrganisationById(id)
-  let password = await hash('password')
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?)', [org.OrganisationApplicantForename, org.OrganisationApplicantSurname, `${org.OrganisationApplicantForename}.${org.OrganisationApplicantSurname}`, password])
+  await generateNewUser(org.OrganisationApplicantForename, org.OrganisationApplicantSurname, 'password')
   await db.query('INSERT INTO `OrganisationStaff` VALUES (LAST_INSERT_ID(), ?)', [id])
   await db.query('UPDATE `Organisation` SET OrganisationApproved = 1, OrganisationManagerId = LAST_INSERT_ID() WHERE OrganisationId = ?', [id])
   db.end()

@@ -1,15 +1,17 @@
 import db from "./db"
+import { generateNewUser } from './users'
 
 export async function getClients() {
   let r = await db.query('SELECT \
   User.UserForename, \
-  User.Userurname, \
-  User.UserUsernamea, \
+  User.UserSurname, \
+  User.UserUsername, \
   Client.ClientAddressLineOne, \
   Client.ClientAddressLineTwo, \
   Client.ClientAddressTown, \
-  Client.ClientAddressPostcode, \
-  Client.ClientPhone \
+  Client.ClientPostcode, \
+  Client.ClientPhone, \
+  Client.ClientEmail \
   FROM User \
   JOIN Client ON User.UserId = Client.ClientId')
   db.end()
@@ -25,7 +27,7 @@ export async function getOneClientByEmail(email) {
   Client.ClientAddressLineTwo, \
   Client.ClientAddressTown, \
   Client.ClientAddressPostcode, \
-  Client.ClientPhone \
+  Client.ClientPhone, \
   Client.ClientEmail \
   FROM User \
   JOIN Client ON User.UserId = Client.ClientId \
@@ -74,9 +76,11 @@ export async function getOneClientById(id) {
 }
 
 
-export async function insertClient({ forename, surname, username, password, address_line_one, address_line_two, address_town, address_postcode, phone, email }) {
-  await db.query('INSERT INTO `User` VALUES (NULL, ?, ?, ?, ?);', [ forename, surname, username, password])
-  await db.query('INSERT INTO `Client` VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?);', [address_line_one, address_line_two, address_town, address_postcode, phone, email])
+export async function insertClient({ forename, surname, password, address_line_one, address_line_two, address_town, address_postcode, phone, email }) {
+  console.log('Creating new client - Generating user')
+  await generateNewUser(forename, surname, password)
+  console.log('User generated, inserting as client')
+  await db.query('INSERT INTO `Client` VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?, ?);', [address_line_one, address_line_two, address_town, address_postcode, phone, email])
   db.end()
   return true
 }
