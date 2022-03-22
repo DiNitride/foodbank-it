@@ -1,7 +1,7 @@
-username,password,type
-admin,password,staff-admin
-staff,staff_pass,staff
-joe@example.com,password123,client
-alex@example.com,password99!,client
-store-jones,iloveshops,organisation-manager
-store-brown,wordpass,organisation
+forename,surname,username,password,type
+Admin,User,admin,password,staff-admin
+Jamie,Roberts,jamie.roberts.61,password,staff
+Samantha,May,samantha.may.23,password,client
+Alex,Milan,alex.milan.51,password,client
+John,Doe,john.doe.65,password,organisation-manager
+Gordon,Brown,gordon.brown.12,password,organisation

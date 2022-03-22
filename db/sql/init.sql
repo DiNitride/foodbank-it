@@ -144,23 +144,23 @@ VALUES (NULL, 'Admin', 'User', 'admin', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPh
 INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 1);
 
 INSERT INTO `User`
-VALUES (NULL, 'Ross', 'Smith', 'ross.smith', '$argon2i$v=19$m=4096,t=3,p=1$xNa+T8qn7fU5EIMUmaVHdg$3QkoXKU0wnfPFqW4FsTg7GzmKdn0Rm2Zh+W2pdXMvQU');
+VALUES (NULL, 'Ross', 'Smith', 'ross.smith', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
 INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 0);
 
 -- Test clients
 INSERT INTO `User`
-VALUES (NULL, 'Joe', 'Bloggs', 'joe.bloggs', '$argon2i$v=19$m=4096,t=3,p=1$uZaxDS/6xOcK5X1vggjHag$31HUqAPTI1HTh650pLV4Uy0RvB5Xau8Btgr+6A38eok');
+VALUES (NULL, 'Jamie', 'Roberts', 'jamie.roberts.61', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
 INSERT INTO `Client`
 VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY123 ABC', '07333 444555', 'joe@example.com');
 
 INSERT INTO `User`
-VALUES (NULL, 'Alex', 'Jones', 'alex.jones', '$argon2i$v=19$m=4096,t=3,p=1$r/zZakJ/8tYzByf/16Em7w$zMcqnqsthYogakz208oQnfnadE68je8Zfv06iCMwsa0');
+VALUES (NULL, 'Samantha', 'May', 'samantha.may.23', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
 INSERT INTO `Client`
 VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY123 ABC', '07333 444555', 'alex@example.com');
 
 -- Test org staff
 INSERT INTO `User`
-VALUES (NULL, 'Manager', 'Store', 'store-manager', '$argon2i$v=19$m=4096,t=3,p=1$ZPZUJvX29LwTmXbgF7xTag$wqSwJpn6gUXzSWLESgb9ZtLgdc/FplRjQQoaeCxPstY');
+VALUES (NULL, 'John', 'Doe', 'store-manager', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
 
 INSERT INTO `Organisation`
 VALUES (
@@ -181,7 +181,7 @@ VALUES (
 );
 
 INSERT INTO `User`
-VALUES (NULL, 'Employee', 'Store', 'store-employee', '$argon2i$v=19$m=4096,t=3,p=1$5G6AERealOYTQC1QIodnNg$zsZVpxAnsUu3pykO6b0Fe6YRmxK3CCC08IWTm9LO6SI');
+VALUES (NULL, 'Gordon', 'Brown', 'gordon.brown.12', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
 
 INSERT INTO `OrganisationStaff`
 VALUES (5, 1);
