@@ -17,10 +17,7 @@ library.add(
 
 // https://next-auth.js.org/getting-started/example
 // SWR config from https://swr.vercel.app/docs/data-fetching
-function MyApp({
-  Component,
-  pageProps: { session, ...pageProps }
-}) {
+function MyApp({Component, pageProps: { session, ...pageProps }}) {
 
   // https://swr.vercel.app/docs/error-handling#status-code-and-error-object
   let fetcher = async (url) => {
