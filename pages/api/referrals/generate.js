@@ -1,10 +1,17 @@
 import { generateCode, getCode, insertCode } from "../../../lib/codes"
+import { getSession } from 'next-auth/react'
 
 export default async function generate(req, res) {
   console.log('Generating referral code')
-  // if (req.method !== 'POST') {
-  //     res.status(405).json({ error: 'Method not allowed' })
-  // }
+  let session = await getSession({ req })
+  if (!session) {
+    res.status(401).json({ error: 'You are not authorised to access this resource' })
+  }
+
+  if (req.method !== 'POST') {
+    res.status(405).json({ error: 'Method not allowed' }) 
+  }
+
   let counter = 0
   let code = ''
   do {
@@ -14,22 +21,14 @@ export default async function generate(req, res) {
       res.status(500).json({ error: 'An error occured while generating the referral code'})
       return
     }
-    console.log('Generating code...')
     code = generateCode()
-    console.log(code)
     let exists = await getCode(code)
-    console.log('Exists')
-    console.log(exists)
     if (!exists) {
-      console.log('No existing code')
       break
     }
     counter++
   } while (true)
   let { surname } = req.body
-  console.log('Inserting')
-  let referral = await insertCode(code, surname)
-  console.log('Got referral: ')
-  console.log(referral)
+  let referral = await insertCode(code, surname, session.user.UserId)
   res.json(referral)
 }
