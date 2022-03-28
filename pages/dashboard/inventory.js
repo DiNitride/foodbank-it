@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import Head from 'next/head'
 import useSWR from "swr"
 import DashboardLayout from "../../components/DashboardLayout"
 import Layout from "../../components/Layout"

@@ -21,6 +21,7 @@ export default function DashboardLayout({ children }) {
     {title: "Inventory", icon: 'store', href: '/dashboard/inventory'},
     {title: "Parcels", icon: 'box', href: '/dashboard/parcels'},
     {title: "Users", icon: 'user-group', href: '/dashboard/users'},
+    {title: "Referrals", icon: '', href: '/dashboard/referrals'}
   ]
 
   if (session.user.admin) {

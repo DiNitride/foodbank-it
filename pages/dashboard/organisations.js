@@ -4,6 +4,7 @@ import useSWR from "swr"
 import DashboardLayout from "../../components/DashboardLayout"
 import Layout from "../../components/Layout"
 import OrganisationApplicationModal from "../../components/OrganisationApplicationModal"
+import Head from 'next/head'
 
 export default function Organisations({}) {
   let { data: dataOrganisations, error: errorOrganisations, mutate: mutateOrganisations } = useSWR('/api/organisations')

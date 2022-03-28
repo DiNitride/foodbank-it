@@ -44,9 +44,12 @@ CREATE TABLE `ReferralCode` (
   `AssignedName` varchar(255) NOT NULL,
   `ClaimedBy` int(11) DEFAULT NULL,
   `Redeemed` tinyint(1) NOT NULL,
+  `CreatedBy` int(11) NOT NULL,
   PRIMARY KEY (`CodeId`),
   KEY `ClaimedBy` (`ClaimedBy`),
-  CONSTRAINT FOREIGN KEY (`ClaimedBy`) REFERENCES `User` (`UserId`) ON DELETE SET NULL
+  KEY `CreatedBy` (`CreatedBy`),
+  CONSTRAINT FOREIGN KEY (`ClaimedBy`) REFERENCES `User` (`UserId`) ON DELETE SET NULL,
+  CONSTRAINT FOREIGN KEY (`CreatedBy`) REFERENCES `User` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Organisation` (
