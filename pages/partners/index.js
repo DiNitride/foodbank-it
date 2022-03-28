@@ -14,8 +14,8 @@ export default function Partners() {
       <Head>
         <title>Partners</title>
       </Head>
-      <div className='flex flex-col'>
-        <div className='w-full p-5'>
+      <div className='flex justify-center'>
+        <div className='w-full md:w-[600px] p-5'>
           <h1 className='text-xl mb-3 font-semibold'>Partner Agencies</h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed leo quam, pretium vitae urna id, sollicitudin euismod velit.
@@ -24,7 +24,7 @@ export default function Partners() {
             Cras non elit non turpis commodo semper eu quis nisi.
           </p>
           <Link href='/partners/apply'>
-            <div className='cursor-pointer p-5 m-3 rounded-xl bg-secondary text-center'>Click here to begin application process</div>
+            <div className='cursor-pointer p-3 mt-5 rounded-xl bg-secondary text-center font-bold'>Click here for the Application Form</div>
           </Link>
         </div>
       </div>

@@ -1,7 +1,13 @@
 forename,surname,username,password,type
-Admin,User,admin,password,staff-admin
-Jamie,Roberts,jamie.roberts.61,password,staff
+Admin,User,admin,admin,staff-admin
+Ross,Smith,ross.Smith,password,staff
+
+Jamie,Roberts,jamie.roberts.61,password,client
 Samantha,May,samantha.may.23,password,client
 Alex,Milan,alex.milan.51,password,client
+
 John,Doe,john.doe.65,password,organisation-manager
 Gordon,Brown,gordon.brown.12,password,organisation
+
+Richard,Michaels,richard.michaels.61,password,organisation-manager
+Peter,Parker,peter.parker.17,password,organisation

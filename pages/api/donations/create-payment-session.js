@@ -3,7 +3,6 @@ import Stripe from "stripe";
 let stripe = Stripe(process.env.STRIPE_SECRET)
 
 export default async function handler(req, res) {
-  console.log('Donational')
   let { value } = req.query
   value = value.replace('.', '')
   if (!RegExp('^[0-9]+$').test(value)) {

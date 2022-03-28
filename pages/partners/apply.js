@@ -82,7 +82,8 @@ export default function Apply() {
     
     let r = await fetch('/api/organisations/apply', {
       method: 'POST',
-      body: JSON.stringify(organisation)
+      body: JSON.stringify(organisation),
+      headers: {'Content-Type': 'application/json'}
     })
     let { success, error } = await r.json()
     if (!r.ok && !error) {

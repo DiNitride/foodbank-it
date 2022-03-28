@@ -5,10 +5,12 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useRef } from 'react'
 
-export default function Layout({ children }) {
+export default function Layout({ allowedRoles, children }) {
   let [menuOpen, toggleMenu] = useToggle(false)
   let navBarRef = useRef(null)
   let { data: session, status } = useSession()
+
+  console.log(session)
 
   let navigationLinks = {
     'Donate': '/donate',
@@ -33,14 +35,14 @@ export default function Layout({ children }) {
   if (session && session.user.type === 'partner' && session.user.orgType === 'support') {
     navigationLinks = {
       ...navigationLinks,
-      'Referals': '/referals'
+      'Referrals': '/referrals'
     }
   }
 
   if (session && session.user.type === 'partner' && session.user.orgType === 'supplier') {
     navigationLinks = {
       ...navigationLinks,
-      'Submit Inventory': '/donate-stock'
+      'Submit Inventory': '/donate/stock'
     }
   }
 
