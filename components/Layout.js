@@ -67,7 +67,7 @@ export default function Layout({ allowedRoles, children }) {
   }, [navBarRef])
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen flex flex-col space-between bg-primary">
       <div ref={navBarRef} className='w-full flex flex-col relative bg-primary z-10 top-0 md:flex-row md:justify-between shadow'>
         <div className='flex justify-between border-b md:border-b-0 p-2 items-center '>
           <div>
@@ -90,7 +90,7 @@ export default function Layout({ allowedRoles, children }) {
           </div>
         </nav>
       </div>
-      <main className='min-h-full'>
+      <main className='grow flex flex-col'>
         { children }
       </main>
     </div>
