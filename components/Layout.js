@@ -81,7 +81,7 @@ export default function Layout({ children }) {
             ))
           }
           <div className='flex flex-row justify-evenly w-full mt-2 md:mt-0 ml-0 md:ml-1'>
-            { status === 'authenticated' ? <a onClick={() => signOut()} className="cursor-pointer p-3 rounded-xl hover:shadow">Sign Out</a> : "" }
+            { status === 'authenticated' ? <a onClick={() => signOut({ callbackUrl: '/' })} className="cursor-pointer p-3 rounded-xl hover:shadow">Sign Out</a> : "" }
 
             { status !== 'authenticated' ? <Link href='/register'><a className="rounded-xl w-full text-center p-3 mr-1 md:mr-0 md:rounded-r-none bg-secondary text-black hover:shadow ">Register</a></Link> : "" }
             { status !== 'authenticated' ? <a onClick={() => signIn()} className="rounded-xl w-full text-center p-3 ml-1 cursor-pointer md:ml-0 md:rounded-l-none bg-secondary text-black hover:shadow">Sign In</a> : "" }
