@@ -79,6 +79,20 @@ CREATE TABLE `OrganisationStaff` (
   PRIMARY KEY (`StaffId`, `OrganisationId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE `OrganisationDonation` (
+  `DonationId` int(11) NOT NULL AUTO_INCREMENT,
+  `OrganisationId` int(11) NOT NULL,
+  `StaffId` int(11) NOT NULL,
+  `DonationText` text NOT NULL,
+  `DonationReviewed` tinyint(4) NOT NULL DEFAULT 0,
+  `DonationRecieved` datetime NOT NULL,
+  PRIMARY KEY (`DonationId`),
+  KEY `OrganisationId` (`OrganisationId`),
+  KEY `StaffId` (`StaffId`),
+  CONSTRAINT `organisationdonation_ibfk_1` FOREIGN KEY (`OrganisationId`) REFERENCES `Organisation` (`OrganisationId`),
+  CONSTRAINT `organisationdonation_ibfk_3` FOREIGN KEY (`StaffId`) REFERENCES `OrganisationStaff` (`StaffId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 CREATE TABLE `CashTransaction` (
   `TransactionId` int(11) NOT NULL AUTO_INCREMENT,
   `TransactionFrom` int(11),
@@ -147,23 +161,29 @@ VALUES (NULL, 'Admin', 'User', 'admin', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPh
 INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 1);
 
 INSERT INTO `User`
-VALUES (NULL, 'Ross', 'Smith', 'ross.smith', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
+VALUES (NULL, 'Ross', 'Smith', 'ross.smith', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 0);
 
 -- Test clients
 INSERT INTO `User`
-VALUES (NULL, 'Jamie', 'Roberts', 'jamie.roberts.61', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
+VALUES (NULL, 'Jamie', 'Roberts', 'jamie.roberts.61', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY123 ABC', '07333 444555', 'joe@example.com');
+VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY23 7BC', '07333 444555', 'joe@example.com');
 
 INSERT INTO `User`
-VALUES (NULL, 'Samantha', 'May', 'samantha.may.23', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
+VALUES (NULL, 'Samantha', 'May', 'samantha.may.23', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY123 ABC', '07333 444555', 'alex@example.com');
+VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY23 5DF', '07333 444555', 'alex@example.com');
 
--- Test org staff
 INSERT INTO `User`
-VALUES (NULL, 'John', 'Doe', 'store-manager', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
+VALUES (NULL, 'Alex', 'Milan', 'alex.milan.51', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
+INSERT INTO `Client`
+VALUES (LAST_INSERT_ID(), '76 Road', 'Fferm Penglais', 'Aberystwyth', 'SY41 A42', '07333 444555', 'alex@example.com');
+
+
+-- Supplier Org
+INSERT INTO `User`
+VALUES (NULL, 'John', 'Doe', 'john.doe.65', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 
 INSERT INTO `Organisation`
 VALUES (
@@ -184,11 +204,42 @@ VALUES (
 );
 
 INSERT INTO `User`
-VALUES (NULL, 'Gordon', 'Brown', 'gordon.brown.12', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
-
-INSERT INTO `OrganisationStaff`
-VALUES (5, 1);
+VALUES (NULL, 'Gordon', 'Brown', 'gordon.brown.12', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 
 INSERT INTO `OrganisationStaff`
 VALUES (6, 1);
+
+INSERT INTO `OrganisationStaff`
+VALUES (7, 1);
+
+-- Support Org
+INSERT INTO `User`
+VALUES (NULL, 'Richard', 'Michaels', 'richard.michaels.61', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
+
+INSERT INTO `Organisation`
+VALUES (
+  NULL,
+  'Social Services',
+  'Council Building',
+  'Council Street',
+  'Aberystwyth',
+  'SY23 8PU',
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu posuere nulla, eget sodales nibh. Aliquam erat volutpat. Sed scelerisque neque felis, a congue metus facilisis a. Suspendisse eu molestie ex. Duis iaculis, sem et tincidunt facilisis, leo quam consequat elit, scelerisque posuere nisi ante ac lacus. Aliquam sit amet massa nulla. Maecenas imperdiet sagittis lectus, sit amet sollicitudin lacus. Donec imperdiet dui at molestie iaculis. ',
+  1,
+  LAST_INSERT_ID(),
+  'support',
+  'Richard',
+  'Michaels',
+  'richard@council.com',
+  '07999333222'
+);
+
+INSERT INTO `User`
+VALUES (NULL, 'Peter', 'Parker', 'peter.parker.17', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
+
+INSERT INTO `OrganisationStaff`
+VALUES (8, 2);
+
+INSERT INTO `OrganisationStaff`
+VALUES (9, 2);
 -- 2022-03-09 10:44:48

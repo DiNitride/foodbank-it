@@ -8,7 +8,7 @@ export default function UserList() {
   }, [])
 
   let loadUsers = async () => {
-    let r = await fetch('/api/users/')
+    let r = await fetch('/api/users')
     let users = await r.json()
     setUsers(users)
   }

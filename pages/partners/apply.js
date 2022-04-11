@@ -82,7 +82,8 @@ export default function Apply() {
     
     let r = await fetch('/api/organisations/apply', {
       method: 'POST',
-      body: JSON.stringify(organisation)
+      body: JSON.stringify(organisation),
+      headers: {'Content-Type': 'application/json'}
     })
     let { success, error } = await r.json()
     if (!r.ok && !error) {
@@ -99,7 +100,7 @@ export default function Apply() {
       </Head>
       <div className='m-2 flex justify-center'>
         { !applicationComplete ?
-        <form onSubmit={handleSubmit} className='border rounded p-2 w-full md:w-1/3 flex flex-col align-middle justify-center'>
+        <form onSubmit={handleSubmit} className='border rounded p-2 w-full md:w-[600px] flex flex-col align-middle justify-center'>
           <p className='text-center mt-2'>Agency Information</p>
           <FormItem onChange={handleChange} type='text' label='Name' name='org_name' value={organisation.org_name} placeholder='' required />
           <div className='flex flex-col m-2'>

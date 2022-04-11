@@ -26,7 +26,6 @@ export default function Users({}) {
             </thead>
             <tbody>
               {users.map((user) => {
-                console.log(user)
                 return <tr>
                   <td className='border p-2'>{ user.UserForename } { user.UserSurname }</td>
                   <td className='border p-2'>{ user.ClientPhone }</td>

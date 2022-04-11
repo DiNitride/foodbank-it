@@ -7,12 +7,12 @@ module.exports = {
     extend: {
       colors: {
         'primary': '#FFF8F3',
-        'secondary': '#A3E4DB',
-        'highlight-one': '#1C6DD0',
-        'highlight-two': '#FED1EF',
-        'success': '#22bb33',
-        'warning': '#f0ad4e',
-        'danger': '#bb2124'
+        'secondary': '#F68989',
+        'highlight-one': '#C65D7B',
+        'highlight-two': '#874356',
+        'success': '#B6FFCE',
+        'warning': '#F6FFA4',
+        'danger': '#FFA8A8'
       }
     },
   },

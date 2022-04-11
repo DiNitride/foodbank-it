@@ -5,10 +5,12 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useRef } from 'react'
 
-export default function Layout({ children }) {
+export default function Layout({ allowedRoles, children }) {
   let [menuOpen, toggleMenu] = useToggle(false)
   let navBarRef = useRef(null)
   let { data: session, status } = useSession()
+
+  console.log(session)
 
   let navigationLinks = {
     'Donate': '/donate',
@@ -33,14 +35,14 @@ export default function Layout({ children }) {
   if (session && session.user.type === 'partner' && session.user.orgType === 'support') {
     navigationLinks = {
       ...navigationLinks,
-      'Referals': '/referals'
+      'Referrals': '/referrals'
     }
   }
 
   if (session && session.user.type === 'partner' && session.user.orgType === 'supplier') {
     navigationLinks = {
       ...navigationLinks,
-      'Submit Inventory': '/donate-stock'
+      'Submit Inventory': '/donate/stock'
     }
   }
 
@@ -65,7 +67,7 @@ export default function Layout({ children }) {
   }, [navBarRef])
 
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen flex flex-col space-between bg-primary">
       <div ref={navBarRef} className='w-full flex flex-col relative bg-primary z-10 top-0 md:flex-row md:justify-between shadow'>
         <div className='flex justify-between border-b md:border-b-0 p-2 items-center '>
           <div>
@@ -88,7 +90,7 @@ export default function Layout({ children }) {
           </div>
         </nav>
       </div>
-      <main className='min-h-full'>
+      <main className='grow flex flex-col'>
         { children }
       </main>
     </div>

@@ -1,5 +1,6 @@
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 import Head from 'next/head'
+import { PaymentElement } from '@stripe/react-stripe-js'
 
 export default function Donate() {
   return (
@@ -8,8 +9,10 @@ export default function Donate() {
         <title>Donate</title>
       </Head>
       <div className='m-2 flex justify-center'>
-        <h1 className='underline text-xl'>Donation Page</h1>
+        <div className='p-5 text-center border rounded'>
+          Thank you for your donation!
+        </div>
       </div>
     </Layout>
   )
-}
+} 

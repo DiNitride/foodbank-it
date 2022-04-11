@@ -7,7 +7,7 @@ import { useState } from "react"
 import Modal from '../../components/Modal'
 import CreateReferralForm from "../../components/CreateReferralForm"
 
-export default function Users({}) {
+export default function Referrals({}) {
   let { data: referrals, error: errorReferrals, mutate: mutateReferrals } = useSWR('/api/referrals')
   let [ modalOpen, setModalOpen ] = useState(false)
 
@@ -21,9 +21,9 @@ export default function Users({}) {
       <Head>
         <title>Referrals</title>
       </Head>
-      <DashboardLayout>
-        <div className='m-2 flex flex-col'>
-          <h1 className='text-xl font-bold text-center mb-2'>Open Referrals</h1>
+      <div className='m-2 flex justify-center'>
+        <div className='w-full md:w-[600px] flex flex-col'>
+          <h1 className='text-xl font-bold text-center mb-2'>Your Referrals</h1>
           { !referrals ? <p>Loading...</p> :
           <table className='border border-collapse'>
             <thead>
@@ -31,16 +31,14 @@ export default function Users({}) {
                 <th className="border">Code</th>
                 <th className='border'>Assigned Name</th>
                 <th className='border'>Claimed</th>
-                <th className='border'>Created By</th>
               </tr>
             </thead>
             <tbody>
               {referrals.map((referral) => {
-                return <tr>
+                return <tr key={referral.CodeId}>
                   <td className='border p-2'>{ referral.Code }</td>
                   <td className='border p-2'>{ referral.AssignedName }</td>
                   <td className='border p-2'>{ referral.Claimed ? 'Yes' : 'No' }</td>
-                  <td className='border p-2'>{ referral.UserForename } { referral.UserSurname }</td>
                 </tr>
               })}
             </tbody>
@@ -49,7 +47,7 @@ export default function Users({}) {
           <button className="mt-2" onClick={() => setModalOpen(true)}><FontAwesomeIcon icon='square-plus' size='xl' /></button>
           { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><CreateReferralForm onSuccess={handleSuccess} /></Modal> : ""}
         </div>
-      </DashboardLayout>
+      </div>
     </Layout>
   )
 }

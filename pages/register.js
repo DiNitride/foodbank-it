@@ -75,7 +75,8 @@ export default function Register() {
 
     let r = await fetch('/api/users/register', {
       method: 'POST',
-      body: JSON.stringify(user)
+      body: JSON.stringify(user),
+      headers: {'Content-Type': 'application/json'}
     })
     let { success, error } = await r.json()
     if (!r.ok && !error) {
