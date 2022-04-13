@@ -17,15 +17,15 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials, req) {
-        console.log('= LOGIN FLOW =')
+        // console.log('= LOGIN FLOW =')
         let user = await getOneUserByUsernameOrEmail(credentials.username)
         if (!user) {
-          console.log(`No user found with username or email of ${credentials.username}`)
+          // console.log(`No user found with username or email of ${credentials.username}`)
           return null
         }
-        console.log(`Found user ${user.UserUsername}`)
+        // console.log(`Found user ${user.UserUsername}`)
         let { UserPassword: password } = await getUserPassword(user.UserId)
-        console.log(`Got password: ${password}`)
+        // console.log(`Got password: ${password}`)
         let passwordCorrect = await verify(password, credentials.password)
         if (passwordCorrect) return user
       }
@@ -35,7 +35,7 @@ export default NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        console.log('Populating JWT')
+        // console.log('Populating JWT')
         let details = await getUserDetails(user.UserId)
         token.user = { ...user, ...details }
       }

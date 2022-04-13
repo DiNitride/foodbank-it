@@ -28,7 +28,6 @@ export default function Orders({}) {
             </thead>
             <tbody>
               {data.map((order) => {
-                console.log(order)
                 return <tr key={order.OrderId}>
                   <td className='border p-2'>{ order.OrderId }</td>
                   <td className='border p-2'>{ order.UserForename } { order.UserSurname }</td>

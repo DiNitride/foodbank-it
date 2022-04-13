@@ -21,7 +21,6 @@ async function get(req, res, session) {
 
 async function post(req, res, session) {
   let { user: userDetails } = req.body
-  console.log(userDetails)
   let user = await insertStaff(userDetails)
   res.json(user)
 }
