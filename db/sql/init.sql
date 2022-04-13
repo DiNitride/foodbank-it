@@ -117,11 +117,15 @@ CREATE TABLE `Feedback` (
 CREATE TABLE `Order` (
   `OrderId` int(11) NOT NULL AUTO_INCREMENT,
   `OrderClient` int(11) NOT NULL,
-  `OrderStatus` enum('open', 'ready', 'closed') NOT NULL,
-  `OrderParcel` int(11),
+  `OrderStatus` enum('open','ready','closed') NOT NULL,
+  `OrderParcel` int(11) DEFAULT NULL,
+  `OrderOpened` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `OrderClosed` datetime DEFAULT NULL,
   PRIMARY KEY (`OrderId`),
-  CONSTRAINT FOREIGN KEY (`OrderClient`) REFERENCES `Client` (`ClientId`) ON DELETE CASCADE,
-  CONSTRAINT FOREIGN KEY (`OrderParcel`) REFERENCES `Parcel` (`ParcelId`) ON DELETE SET NULL
+  KEY `OrderClient` (`OrderClient`),
+  KEY `OrderParcel` (`OrderParcel`),
+  CONSTRAINT `order_ibfk_1` FOREIGN KEY (`OrderClient`) REFERENCES `Client` (`ClientId`) ON DELETE CASCADE,
+  CONSTRAINT `order_ibfk_2` FOREIGN KEY (`OrderParcel`) REFERENCES `Parcel` (`ParcelId`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Parcel` (

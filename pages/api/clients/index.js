@@ -1,11 +1,17 @@
 import { getSession } from "next-auth/react";
+import api from "../../../lib/api";
 import { getClients } from "../../../lib/clients";
 
-export default async function handler(req, res) {
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({error: 'You are not authorised to access this resource'})
+export default api({
+  'GET': {
+    authenticated: true,
+    roles: ['admin'],
+    handler: get
   }
+})
+
+async function get(req, res, session) {
   let clients = await getClients()
   res.json(clients)
+  return
 }

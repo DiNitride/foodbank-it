@@ -1,16 +1,21 @@
 import { getSession } from "next-auth/react"
+import api from "../../../../lib/api"
 import { approveOrganisation } from "../../../../lib/organisations"
 
-export default async function handler(req, res) {
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({error: 'You are not authorised to access this resource'})
+export default api({
+  'GET': {
+    authenticated: true,
+    roles: ['admin'],
+    handler: post
   }
-  let { id } = req.query
-  let success = await approveOrganisation(id)
-  if (success) {
+})
+
+async function post(req, res, session) {
+  try {
+    let { id } = req.query
+    let success = await approveOrganisation(id)
     res.json({ success: success })
-  } else {
-    res.status(400).json({ message: `Error approving organisation ${id}`})
+  } catch (e) {
+    res.status(400).json({ error: `Error approving organisation ${id}`})
   }
 }

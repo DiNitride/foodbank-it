@@ -1,14 +1,16 @@
 import { getSession } from "next-auth/react";
+import api from "../../../lib/api";
 import { getCodes, getCodesCreatedByUser, getCodesFromOrg } from "../../../lib/codes";
 
-export default async function handler(req, res) {
-  console.log('Getting codes')
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({error: 'You are not authorised to access this resource'})
-    return
+export default api({
+  'GET': {
+    authentication: true,
+    roles: ['staff', 'support'],
+    handler: get
   }
-  
+})
+
+async function get(req, res, session) {
   let codes = []
   if (session.user.type === 'staff' && session.user.admin === true) {
     codes = await getCodes()

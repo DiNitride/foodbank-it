@@ -1,15 +1,14 @@
+import api from "../../../lib/api"
 import { getOneClientByEmail, insertClient } from "../../../lib/clients"
 import { hash } from "../../../lib/passwords"
 
-export default async function register(req, res) {
-
-  if (req.method !== 'POST') {
-    res.status(405).json({'error': 'You must use POST for this endpoint'})
-    return
+export default api({
+  'POST': {
+    hander: post
   }
+})
 
-  
-  
+async function post(req, res, session) {
   let user = JSON.parse(req.body)
   let existingUser = await getOneClientByEmail(user.email)
 

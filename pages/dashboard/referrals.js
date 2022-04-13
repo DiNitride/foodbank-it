@@ -7,7 +7,7 @@ import { useState } from "react"
 import Modal from '../../components/Modal'
 import CreateReferralForm from "../../components/CreateReferralForm"
 
-export default function Users({}) {
+export default function Referrals({}) {
   let { data: referrals, error: errorReferrals, mutate: mutateReferrals } = useSWR('/api/referrals')
   let [ modalOpen, setModalOpen ] = useState(false)
 

@@ -7,8 +7,6 @@ export default function DashboardLayout({ children }) {
   let { data: session, status } = useSession()
   let router = useRouter()
 
-  console.log(router)
-
   if (status === 'loading') {
     return (
       <div></div>
@@ -23,7 +21,8 @@ export default function DashboardLayout({ children }) {
     {title: "Inventory", icon: 'store', href: '/dashboard/inventory'},
     {title: "Parcels", icon: 'box', href: '/dashboard/parcels'},
     {title: "Users", icon: 'user-group', href: '/dashboard/users'},
-    {title: "Referrals", icon: 'ticket', href: '/dashboard/referrals'}
+    {title: "Referrals", icon: 'ticket', href: '/dashboard/referrals'},
+    {title: "Orders", icon: 'box', href: '/dashboard/orders'}
   ]
 
   if (session.user.admin) {

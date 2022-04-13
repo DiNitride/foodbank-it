@@ -87,10 +87,10 @@ export default function Apply() {
     })
     let { success, error } = await r.json()
     if (!r.ok && !error) {
-      setError('Something went wrong... Please refresh and try again')
+      setErrors(['Something went wrong... Please refresh and try again'])
     }
     if (success) setApplicationComplete(true)
-    if (error) setError([ error ])
+    if (error) setErrors([ error ])
   }
 
   return (

@@ -1,16 +1,16 @@
 import { generateCode, getCode, insertCode } from "../../../lib/codes"
 import { getSession } from 'next-auth/react'
+import api from '../../../lib/api'
 
-export default async function generate(req, res) {
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({ error: 'You are not authorised to access this resource' })
+export default api({
+  'POST': {
+    authenticated: true,
+    roles: ['admin', 'support'],
+    handler: post
   }
+})
 
-  if (req.method !== 'POST') {
-    res.status(405).json({ error: 'Method not allowed' }) 
-  }
-
+async function post(req, res, session) {
   let counter = 0
   let code = ''
   do {

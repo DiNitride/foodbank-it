@@ -1,26 +1,32 @@
 import { getUser } from "../../../lib/users"
 import { getSession } from "next-auth/react"
 import { deleteOrganisation, getOneOrganisationById } from "../../../lib/organisations"
+import api from "../../../lib/api"
 
-export default async function handler(req, res) {
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({error: 'You are not authorised to access this resource'})
+export default api({
+  'GET': {
+    authenticated: true,
+    roles: ['staff'],
+    handler: get
+  },
+  'DELETE': {
+    authenticated: true,
+    roles: ['admin'],
+    handler: handler_delete
   }
+})
 
+async function get(req, res, session) {
   let { id } = req.query
-  if (req.method === 'GET') {
-    let org = await getOneOrganisationById(id)
-    if (org) {
-      res.json(org)
-    } else {
-      res.status(404).json({ message: `Organisation ${id} not found`})
-    }
-  } else if (req.method === 'POST') {
-
-  } else if (req.method === 'DELETE') {
-    await deleteOrganisation(id)
-    res.json({ success: true })
+  let org = await getOneOrganisationById(id)
+  if (org) {
+    res.json(org)
+  } else {
+    res.status(404).json({ message: `Organisation ${id} not found`})
   }
-  
+}
+
+async function handler_delete(req, res, session) {
+  await deleteOrganisation(id)
+  res.json({ success: true })
 }

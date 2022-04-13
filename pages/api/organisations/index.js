@@ -1,14 +1,17 @@
 import { getUsers } from "../../../lib/users";
 import { getSession } from "next-auth/react";
 import { getOrganisations } from "../../../lib/organisations";
+import api from '../../../lib/api'
 
-export default async function handler(req, res) {
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({error: 'You are not authorised to access this resource'})
-    return
+export default api({
+  'GET': {
+    authenticated: true,
+    roles: ['staff'],
+    handler: get
   }
-  
+})
+
+async function get(req, res) {
   let orgs = await getOrganisations()
   res.json(orgs)
 }

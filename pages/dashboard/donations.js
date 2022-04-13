@@ -26,16 +26,18 @@ export default function Donations({}) {
                 <th className='border'>Organisation</th>
                 <th className='border'>User</th>
                 <th className='border'>Donation</th>
+                <th classNAme='border'>Recieved</th>
               </tr>
             </thead>
             <tbody>
               { data.length !== 0 ?
               data.map((donation) => {
-                return <tr>
+                return <tr key={donation.DonationId}>
                   <td className='border p-2 text-center'>{ donation.DonationId }</td>
                   <td className='border p-2'>{ donation.OrganisationName }</td>
                   <td className='border p-2'>{ donation.UserForename } { donation.UserSurname }</td>
-                  <td className='border p-2'>{ donation.DonationText }</td>
+                  <td className='border p-2 whitespace-pre'>{ donation.DonationText }</td>
+                  <td className='border p-2'>{ donation.DonationRecieved }</td>
                 </tr>
               }) : <tr><td colSpan={4} className="text-center">No donations</td></tr> }
             </tbody>

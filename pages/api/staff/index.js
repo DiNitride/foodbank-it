@@ -1,12 +1,27 @@
-import { getSession } from "next-auth/react";
-import { getClients } from "../../../lib/clients";
-import { getStaff } from "../../../lib/staff";
+import api from "../../../lib/api";
+import { getStaff, insertStaff } from "../../../lib/staff";
 
-export default async function handler(req, res) {
-  let session = await getSession({ req })
-  if (!session) {
-    res.status(401).json({error: 'You are not authorised to access this resource'})
+export default api({
+  'GET': {
+    authentication: true,
+    roles: ['admin'],
+    handler: get
+  },
+  'POST': {
+    authentication: true,
+    roles: ['admin'],
+    handler: post
   }
+})
+
+async function get(req, res, session) {
   let staff = await getStaff()
   res.json(staff)
+}
+
+async function post(req, res, session) {
+  let { user: userDetails } = req.body
+  console.log(userDetails)
+  let user = await insertStaff(userDetails)
+  res.json(user)
 }

@@ -30,7 +30,7 @@ export default function Referrals({}) {
               <tr>
                 <th className="border">Code</th>
                 <th className='border'>Assigned Name</th>
-                <th className='border'>Claimed</th>
+                <th className='border'>Redeemed</th>
               </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@ export default function Referrals({}) {
                 return <tr key={referral.CodeId}>
                   <td className='border p-2'>{ referral.Code }</td>
                   <td className='border p-2'>{ referral.AssignedName }</td>
-                  <td className='border p-2'>{ referral.Claimed ? 'Yes' : 'No' }</td>
+                  <td className='border p-2'>{ referral.Redeemed ? 'Yes' : 'No' }</td>
                 </tr>
               })}
             </tbody>
