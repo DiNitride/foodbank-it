@@ -18,7 +18,7 @@ export default function Orders({}) {
   return (
     <Layout>
       <Head>
-        <title>Your Orders</title>>
+        <title>Your Orders</title>
       </Head>
       <div className='m-2 flex justify-center'>
         <div className='flex flex-col w-[500px]'>

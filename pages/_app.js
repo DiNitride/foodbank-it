@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react'
 import { SWRConfig } from 'swr'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faBox, faBuilding, faEnvelope, faMoneyBill, faPhone, faSquarePlus, faStore, faTicket, faUserGroup } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faBuilding, faCheck, faEnvelope, faMoneyBill, faPhone, faSquarePlus, faStore, faTicket, faTrash, faUserGroup, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
  faBars,
@@ -15,7 +15,10 @@ library.add(
  faStore,
  faSquarePlus,
  faTicket,
- faMoneyBill
+ faMoneyBill,
+ faTrash,
+ faCheck,
+ faXmark
 )
 
 // https://next-auth.js.org/getting-started/example

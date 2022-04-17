@@ -36,7 +36,7 @@ export default function Apply() {
     org_type: RegExp('^.*$'),
     org_description: RegExp('[a-zA-Z\\s:!?-_]+'),
     org_address_line_one: RegExp('^[a-zA-Z0-9\\s,]+$'),
-    org_address_line_two: RegExp('^[a-zA-Z0-9\\s,]?$'),
+    org_address_line_two: RegExp('^[a-zA-Z0-9\\s,]*$'),
     org_address_town: RegExp('^[a-zA-Z]+$'),
     org_address_postcode: RegExp('^[a-zA-Z]{2}[0-9]{1,2}\\s?[0-9]{1}[a-zA-Z]{2}$'),
     applicant_forename: RegExp('^[a-zA-Z]+$'),
