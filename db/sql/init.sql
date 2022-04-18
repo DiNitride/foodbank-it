@@ -131,6 +131,7 @@ CREATE TABLE `Order` (
 CREATE TABLE `Parcel` (
   `ParcelId` int(11) NOT NULL AUTO_INCREMENT,
   `ParcelComplete` tinyint NOT NULL,
+  `ParcelDetails` text NOT NULL,
   PRIMARY KEY (`ParcelId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -172,17 +173,17 @@ INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 0);
 INSERT INTO `User`
 VALUES (NULL, 'Jamie', 'Roberts', 'jamie.roberts.61', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY23 7BC', '07333 444555', 'joe@example.com');
+VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY237BC', '07888222111', 'joe@example.com');
 
 INSERT INTO `User`
 VALUES (NULL, 'Samantha', 'May', 'samantha.may.23', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY23 5DF', '07333 444555', 'alex@example.com');
+VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY235DF', '07111222333', 'alex@example.com');
 
 INSERT INTO `User`
 VALUES (NULL, 'Alex', 'Milan', 'alex.milan.51', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '76 Road', 'Fferm Penglais', 'Aberystwyth', 'SY41 A42', '07333 444555', 'alex@example.com');
+VALUES (LAST_INSERT_ID(), '76 Road', 'Fferm Penglais', 'Aberystwyth', 'SY41A42', '07666555444', 'alex@example.com');
 
 
 -- Supplier Org
@@ -196,7 +197,7 @@ VALUES (
   'Store Building',
   'Store Street',
   'Aberystwyth',
-  'SY23 123 CBA',
+  'SY238PQ',
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus laoreet justo vitae turpis mattis suscipit. Pellentesque vehicula, ante sit amet elementum sodales, erat urna imperdiet orci, ut efficitur odio tellus ac lorem. Sed in erat vulputate, dapibus sapien at, finibus orci. Nulla dapibus non nunc quis vehicula. Phasellus maximus maximus est non eleifend. Curabitur tortor arcu, consectetur nec finibus at, blandit nec nisi. Duis interdum sodales augue id rutrum. Curabitur fermentum sapien in turpis aliquam, et aliquet purus euismod. Curabitur consectetur urna sit amet tincidunt sollicitudin. Cras faucibus lacinia ante. Curabitur sed neque magna. Praesent mollis tristique augue, eu fermentum magna ultrices eu. Donec mollis odio magna, vel maximus ligula laoreet sit amet. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis turpis risus, sed aliquet lorem imperdiet pulvinar. ',
   1,
   LAST_INSERT_ID(),
@@ -227,7 +228,7 @@ VALUES (
   'Council Building',
   'Council Street',
   'Aberystwyth',
-  'SY23 8PU',
+  'SY238PU',
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu posuere nulla, eget sodales nibh. Aliquam erat volutpat. Sed scelerisque neque felis, a congue metus facilisis a. Suspendisse eu molestie ex. Duis iaculis, sem et tincidunt facilisis, leo quam consequat elit, scelerisque posuere nisi ante ac lacus. Aliquam sit amet massa nulla. Maecenas imperdiet sagittis lectus, sit amet sollicitudin lacus. Donec imperdiet dui at molestie iaculis. ',
   1,
   LAST_INSERT_ID(),
@@ -235,7 +236,7 @@ VALUES (
   'Richard',
   'Michaels',
   'richard@council.com',
-  '07999333222'
+  '07888999222'
 );
 
 INSERT INTO `User`

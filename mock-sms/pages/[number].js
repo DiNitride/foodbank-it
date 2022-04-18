@@ -4,13 +4,14 @@ import useSWR from 'swr'
 
 export default function Home() {
   let router = useRouter()
-  let { pin } = router.query
-  let { data, error, mutate } = useSWR(`/api/messages?pin=${pin}`, async (...args) => { if (!pin) return; let r = await fetch(...args); return await r.json() })
+  let { number } = router.query
+  let { data, error, mutate } = useSWR(`/api/messages?number=${number}`, async (...args) => { let r = await fetch(...args); return await r.json() })
 
   return (
     <div>
-      { !pin ? <h1>Loading...</h1> : <>
-        <h1>SMS Messages for pin { pin }</h1>
+      <a href='/'>Home</a>
+      { !data ? <h1>Loading...</h1> : <>
+        <h1>SMS Messages for { number }</h1>
         <button onClick={() => mutate()}>Refresh</button>
         { !data ? '' :
         data.map(message => (<div key={message.MessageId}>

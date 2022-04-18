@@ -40,6 +40,7 @@ export default function CreateReferralForm({ onSuccess, onError }) {
   
   return (
     <form className='flex flex-col'>
+      <h2 className='text-center underline text-lg'>New Referral</h2>
       <label>Referee Surname</label>
       <input ref={inputRef} type='text' value={name} onChange={handleChange} className='border rounded p-1 my-1'></input>
       { error ? <p className='text-red-600 text-sm'>{error}</p> : ''}

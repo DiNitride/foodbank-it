@@ -15,8 +15,17 @@ export default function Parcels({}) {
     mutate()
   }
 
-  let handleUpdate = async () => {
-    
+  let handleUpdate = async (id, complete) => {
+    let r = await fetch(`/api/parcels/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        complete: complete
+      })
+    })
+    mutate()
   }
 
   let handleDelete = async (id) => {
@@ -47,6 +56,7 @@ export default function Parcels({}) {
                 return <tr key={parcel.OrderId}>
                   <td className='border p-2'>{ parcel.ParcelId }</td>
                   <td className='border p-2'>{ parcel.ParcelComplete ? 'Yes' : 'No' }</td>
+                  <td className='border p-2'><span className='cursor-pointer' onClick={async () => handleUpdate(parcel.ParcelId, !parcel.ParcelComplete)}><FontAwesomeIcon icon={parcel.ParcelComplete ? 'xmark' : 'check'} /></span></td>
                   <td className='border p-2'><span className='cursor-pointer' onClick={async () => handleDelete(parcel.ParcelId)}><FontAwesomeIcon icon='trash' /></span></td>
                 </tr>
               })}

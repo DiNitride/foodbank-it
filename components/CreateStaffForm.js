@@ -43,6 +43,7 @@ export default function CreateStaffForm({ onSuccess, onError }) {
   
   return (
     <form className='flex flex-col'>
+      <h2 className='text-lg underline text-center'>Add Staff Account</h2>
       <label>Forename</label>
       <input ref={inputRef} type='text' name='forename' value={user.forename} onChange={handleChange} className='border rounded p-1 my-1'></input>
       <label>Surname</label>

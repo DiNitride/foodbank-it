@@ -1,39 +1,14 @@
 import { useState, useEffect } from 'react'
 
 export default function Home() {
-  let [pin, setPin] = useState('')
-  let [error, setError] = useState('')
-  let [data, setData] = useState([])
-
-  let handleChange = (e) => {
-    setPin(e.target.value)
-  }
-
-  let loadData = async () => {
-    let r = await fetch(`/api/messages?pin=${pin}`)
-    if (!r.ok) {
-      let { error } = await r.json()
-      setError(error)
-      return
-    }
-    let data = await r.json()
-    setData(data)
-    setError('')
-  }
-
   return (
     <div>
-      <div>
-        <input value={pin} placeholder='Enter Pin' onChange={handleChange}></input>
-        <button onClick={() => loadData()}>Load Messages</button>
-      </div>
-      { !data ? '' :
-      data.map(message => (<div>
-        <p style={{ 'textDecoration': 'underline' }}>{message.MessageTimestamp}</p>
-        <p style={{ 'whiteSpace': 'pre'}}>{message.MessageValue}</p>
-      </div>
-      )) }
-      <p>{ error }</p>
+      <h1>SMS Numbers</h1>
+      <p><a href='/07333222111'>07888222111 - Jamie Roberts</a></p>
+      <p><a href='/07111222333'>07111222333 - Samantha May</a></p>
+      <p><a href='/07666555444'>07666555444 - Alex Milan</a></p>
+      <p><a href='/07999333222'>07999333222 - Supplier Store Applicant Number (John Doe)</a></p>
+      <p><a href='/07888999222'>07888999222 - Social Service Applicant Number (Richard Michaels)</a></p>
     </div>
   )
 }

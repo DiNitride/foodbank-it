@@ -4,12 +4,12 @@ import { hash } from "../../../lib/passwords"
 
 export default api({
   'POST': {
-    hander: post
+    handler: post
   }
 })
 
 async function post(req, res, session) {
-  let user = JSON.parse(req.body)
+  let user = req.body
   let existingUser = await getOneClientByEmail(user.email)
 
   if (existingUser) {
@@ -21,6 +21,12 @@ async function post(req, res, session) {
   if (!postcodeValidator.test(user.address_postcode)) {
     res.status(400).json({ 'error': 'Sorry, you must live within the SY23 postcode to use this service.' })
     return
+  }
+
+  user = {
+    ...user,
+    address_postcode: user.address_postcode.replace(' ', ''),
+    phone: user.phone.replace(' ', '')
   }
 
   await insertClient(user)

@@ -39,7 +39,7 @@ export default function Donations({}) {
                   <td className='border p-2 whitespace-pre'>{ donation.DonationText }</td>
                   <td className='border p-2'>{ donation.DonationRecieved }</td>
                 </tr>
-              }) : <tr><td colSpan={4} className="text-center">No donations</td></tr> }
+              }) : <tr><td colSpan={5} className="text-center border">No donations</td></tr> }
             </tbody>
           </table>
           }
