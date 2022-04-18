@@ -4,9 +4,13 @@ import DashboardLayout from "../../components/DashboardLayout"
 import Layout from "../../components/Layout"
 import Head from 'next/head'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import Modal from "../../components/Modal"
+import EditParcelForm from "../../components/EditParcelForm"
 
 export default function Parcels({}) {
-  let { data, error, mutate } = useSWR('/api/parcels')
+  let [modalOpen, setModalOpen] = useState(false)
+  let { data, error, mutate } = useSWR('/api/parcels?filter=unused')
+  let [selected, setSelected] = useState(null)
   
   let handleCreate = async () => {
     let r = await fetch('/api/parcels', {
@@ -15,30 +19,10 @@ export default function Parcels({}) {
     mutate()
   }
 
-  let handleUpdate = async (id, complete) => {
-    let r = await fetch(`/api/parcels/${id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        complete: complete
-      })
-    })
-    mutate()
-  }
-
-  let handleDelete = async (id) => {
-    let r = await fetch(`/api/parcels/${id}`, {
-      method: 'DELETE'
-    })
-    mutate()
-  }
-
   return ( 
     <Layout>
       <Head>
-        <title>Parcels</title>
+        <title>Available Parcels</title>
       </Head>
       <DashboardLayout>
         <div className='m-2 flex flex-col items-center'>
@@ -48,16 +32,16 @@ export default function Parcels({}) {
             <thead>
               <tr>
                 <th className="border p-2">ID</th>
+                <th className="border p-2">Details</th>
                 <th className='border p-2'>Complete?</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((parcel) => {
-                return <tr key={parcel.OrderId}>
+              {data.map((parcel, index) => {
+                return <tr key={parcel.OrderId} className='cursor-pointer' onClick={() => { setSelected(index); setModalOpen(true)}}>
                   <td className='border p-2'>{ parcel.ParcelId }</td>
+                  <td className='border p-2 text-left whitespace-pre'>{ parcel.ParcelDetails }</td>
                   <td className='border p-2'>{ parcel.ParcelComplete ? 'Yes' : 'No' }</td>
-                  <td className='border p-2'><span className='cursor-pointer' onClick={async () => handleUpdate(parcel.ParcelId, !parcel.ParcelComplete)}><FontAwesomeIcon icon={parcel.ParcelComplete ? 'xmark' : 'check'} /></span></td>
-                  <td className='border p-2'><span className='cursor-pointer' onClick={async () => handleDelete(parcel.ParcelId)}><FontAwesomeIcon icon='trash' /></span></td>
                 </tr>
               })}
             </tbody>
@@ -66,6 +50,11 @@ export default function Parcels({}) {
           <button className="mt-2" onClick={handleCreate}><FontAwesomeIcon icon='square-plus' size='xl' /></button>
         </div>
       </DashboardLayout>
+      { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><EditParcelForm
+        parcel={data[selected]}
+        onDelete={() => { setModalOpen(false); mutate() }}
+        onSave={() => { setModalOpen(false); mutate() }}
+      /></Modal> : ''}
     </Layout>
   )
 }

@@ -1,13 +1,14 @@
+import { faCropSimple } from "@fortawesome/free-solid-svg-icons"
 import api from "../../../lib/api"
 import { setOrderParcel } from "../../../lib/orders"
-import { deleteParcel, getParcel, updateParcelStatus } from "../../../lib/parcels"
+import { deleteParcel, getParcel, updateParcel } from "../../../lib/parcels"
 
 export default api({
   'GET': {
     handler: get
   },
-  'POST': {
-    handler: post,
+  'PATCH': {
+    handler: patch,
     authenticated: true,
     roles: ['staff']
   },
@@ -24,11 +25,11 @@ async function get(req, res, session) {
   res.json(parcels)
 }
 
-async function post(req, res, session) {
+async function patch(req, res, session) {
   let { id } = req.query
-  let { complete } = req.body
-  await updateParcelStatus(id, complete)
-  res.json({ success: true })
+  let { complete, details } = req.body
+  await updateParcel(id, complete, details)
+  res.json({ success: true, parcel: req.body })
 }
 
 async function deleteHandler(req, res, session) {

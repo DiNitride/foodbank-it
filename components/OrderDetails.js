@@ -32,7 +32,7 @@ export default function OrderDetails({ order, onDelete, onComplete, onEdit, onEr
 
   let handleEdit = async (e) => {
     setEditMode(true)
-    let r = await fetch('/api/parcels?filter=complete')
+    let r = await fetch('/api/parcels?filter=available')
     if (!r.ok) {
       setError('An error occured whilst loading parcels...')
       return

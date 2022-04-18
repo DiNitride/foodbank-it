@@ -1,5 +1,5 @@
 import api from "../../../lib/api"
-import { getParcels, createParcel, getCompleteParcels, getIncompleteParcels } from "../../../lib/parcels"
+import { getParcels, createParcel, getCompleteParcels, getIncompleteParcels, getAvailableParcels, getUnusedParcels } from "../../../lib/parcels"
 
 export default api({
   'GET': {
@@ -21,6 +21,10 @@ async function get(req, res, session) {
     parcels = await getCompleteParcels()
   } else if (filter === 'incomplete') {
     parcels = await getIncompleteParcels() 
+  } else if (filter === 'available') {
+    parcels = await getAvailableParcels()
+  } else if (filter === 'unused') {
+    parcels = await getUnusedParcels()
   }
   res.json(parcels)
 }

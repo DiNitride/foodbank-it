@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Modal from "../../components/Modal";
 import SubmitReferralForm from "../../components/SubmitReferralForm";
+import OrderStatusPill from '../../components/OrderStatusPill'
 
 export default function Orders({}) {
   let [modalOpen, setModalOpen] = useState(false)
@@ -38,7 +39,7 @@ export default function Orders({}) {
                   return <tr key={order.OrderId}>
                     <td className='border p-2'>{ order.OrderId }</td>
                     <td className='border p-2'>{ order.UserForename } { order.UserSurname }</td>
-                    <td className='border p-2'>{ order.OrderStatus.substring(0, 1).toUpperCase() }{ order.OrderStatus.substring(1) }</td>
+                    <td className='border p-2'><OrderStatusPill status={order.OrderStatus} /></td>
                     <td className='border p-2'>{ order.PrettyOrderOpened }</td>
                   </tr>
                 })}
