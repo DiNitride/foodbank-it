@@ -7,8 +7,6 @@ import { getSession, useSession } from 'next-auth/react'
 
 
 import Layout from '../components/Layout'
-import UserInformation from '../components/UserInformation'
-import UserList from '../components/UserList'
 
 export default function Home({ splash }) {
   let { data: session, status } = useSession()

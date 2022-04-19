@@ -1,7 +1,8 @@
-import { getOneUserById, getUser, getUserPassword, updateUserPassword } from "../../../lib/users"
+import { getOneUserById, getUser, getUserPassword, updateUserDetails, updateUserPassword } from "../../../lib/users"
 import { getSession } from "next-auth/react"
-import { hash } from "../../../lib/passwords"
+import { hash, verify } from "../../../lib/passwords"
 import api from "../../../lib/api"
+import { faCropSimple } from "@fortawesome/free-solid-svg-icons"
 
 export default api({
   'GET': {
@@ -11,12 +12,11 @@ export default api({
   },
   'PATCH': {
     authenticated: true,
-    roles: ['admin'],
     handler: patch
   }
 })
 
-async function get(req, res) {
+async function get(req, res, session) {
   let { id } = req.query
   let user = await getOneUserById(id)
   if (user) {
@@ -27,19 +27,30 @@ async function get(req, res) {
   return
 }
 
-async function patch(req, res) {
-  let { action, payload } = req.body
-  if (action === 'updatePassword') {
-    let { old, new: newPass } = payload
-    let confirmOld = getUserPassword(session.user.UserId)
-    if (old !== confirmOld) {
-      res.status(400).json({ error: 'Old password entered was incorrect'})
+async function patch(req, res, session) {0
+  let { id } = req.query
+  if (session.user.admin === 1 || session.user.UserId === Number.parseInt(id)) {
+    let { action, payload } = req.body
+    if (action === 'updatePassword') {
+      let { old, new: newPass } = payload
+      let { UserPassword: current } = await getUserPassword(session.user.UserId)
+      let passwordCorrect = await verify(current, old)
+      if (!passwordCorrect) {
+        res.status(400).json({ error: 'Incorrect password entered'})
+        return
+      }
+      let hashed = await hash(newPass)
+      await updateUserPassword(hashed)
+      res.json({ success: true })
+    } else if (action === 'updateDetails') {
+      let { forename, surname } = payload
+      await updateUserDetails(id, forename, surname)
+      res.json({ success: true })
+    } else {
+      res.status(400).json({ error: 'Invalid PATCH action' })
     }
-    let hashed = await hash(newPass)
-    await updateUserPassword(hashed)
-    res.json({ success: true })
   } else {
-    res.status(400).json({ error: 'Invalid PATCH action' })
+    console.log('/???')
+    res.status(403).json({ error: 'You do not have permission to modify this user'})
   }
-  return
 }

@@ -47,7 +47,7 @@ export default function Layout({ children }) {
   if (session && session.user.type === 'partner' && session.user.manager) {
     navigationLinks = {
       ...navigationLinks,
-      'Organisation Dashboard': '/organisation-dashboard'
+      'Organisation Dashboard': '/organisation/dashboard'
     }
   }
 

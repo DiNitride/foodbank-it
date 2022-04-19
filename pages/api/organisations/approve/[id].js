@@ -3,7 +3,7 @@ import api from "../../../../lib/api"
 import { approveOrganisation } from "../../../../lib/organisations"
 
 export default api({
-  'GET': {
+  'POST': {
     authenticated: true,
     roles: ['admin'],
     handler: post

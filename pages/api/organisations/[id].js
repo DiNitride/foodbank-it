@@ -6,7 +6,7 @@ import api from "../../../lib/api"
 export default api({
   'GET': {
     authenticated: true,
-    roles: ['staff'],
+    roles: ['staff', 'partner'],
     handler: get
   },
   'DELETE': {
@@ -18,11 +18,13 @@ export default api({
 
 async function get(req, res, session) {
   let { id } = req.query
-  let org = await getOneOrganisationById(id)
-  if (org) {
-    res.json(org)
-  } else {
-    res.status(404).json({ message: `Organisation ${id} not found`})
+  if (session.user.type === 'staff' || session.user.org === Number.parseInt(id)) {
+    let org = await getOneOrganisationById(id)
+    if (org) {
+      res.json(org)
+    } else {
+      res.status(404).json({ message: `Organisation ${id} not found`})
+    }
   }
 }
 
