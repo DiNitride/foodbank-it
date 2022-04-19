@@ -11,12 +11,18 @@ export default api({
 })
 
 async function get(req, res, session) {
+  let { filter } = req.query
   let codes = []
   if (session.user.type === 'staff' && session.user.admin === true) {
     codes = await getCodes()
   }
   if (session.user.type === 'partner' && session.user.orgType === 'support' ) {
     codes = await getCodesCreatedByUser(session.user.UserId)
+    if (filter === 'unredeemed') {
+      codes = codes.reduce((arr, code) => {
+        return code.Redeemed ? arr : [ ...arr, code ]
+      }, [])
+    } 
   }
   res.json(codes)
 }

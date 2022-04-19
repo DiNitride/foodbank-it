@@ -5,7 +5,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useRef } from 'react'
 
-export default function Layout({ children }) {
+export default function Layout({ mainStyling, children }) {
   let [menuOpen, toggleMenu] = useToggle(false)
   let navBarRef = useRef(null)
   let { data: session, status } = useSession()
@@ -81,6 +81,7 @@ export default function Layout({ children }) {
             ))
           }
           <div className='flex flex-row justify-evenly w-full mt-2 md:mt-0 ml-0 md:ml-1'>
+            { status === 'authenticated' ? <Link href='/me'><a className="cursor-pointer p-3 rounded-xl hover:shadow">Profile</a></Link> : "" }
             { status === 'authenticated' ? <a onClick={() => signOut({ callbackUrl: '/' })} className="cursor-pointer p-3 rounded-xl hover:shadow">Sign Out</a> : "" }
 
             { status !== 'authenticated' ? <Link href='/register'><a className="rounded-xl w-full text-center p-3 mr-1 md:mr-0 md:rounded-r-none bg-secondary text-black hover:shadow ">Register</a></Link> : "" }
@@ -88,7 +89,7 @@ export default function Layout({ children }) {
           </div>
         </nav>
       </div>
-      <main className='grow flex flex-col'>
+      <main className={mainStyling ? mainStyling : 'flex justify-center'}>
         { children }
       </main>
     </div>

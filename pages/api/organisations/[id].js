@@ -1,6 +1,6 @@
 import { getUser } from "../../../lib/users"
 import { getSession } from "next-auth/react"
-import { deleteOrganisation, getOneOrganisationById } from "../../../lib/organisations"
+import { deleteOrganisation, getOneOrganisationById, updateOrgContact } from "../../../lib/organisations"
 import api from "../../../lib/api"
 
 export default api({
@@ -8,6 +8,11 @@ export default api({
     authenticated: true,
     roles: ['staff', 'partner'],
     handler: get
+  },
+  'POST': {
+    authenticated: true,
+    roles: ['admin', 'partner'],
+    handler: post
   },
   'DELETE': {
     authenticated: true,
@@ -24,6 +29,17 @@ async function get(req, res, session) {
       res.json(org)
     } else {
       res.status(404).json({ message: `Organisation ${id} not found`})
+    }
+  }
+}
+
+async function post(req, res, session) {
+  let { id } = req.query
+  if (session.user.type === 'staff' || session.user.org === Number.parseInt(id)) {
+    let { action, payload } = req.body
+    if (action === 'updateContact') {
+      await updateOrgContact(id, payload.description, payload.email, payload.phone)
+      res.json({ success: true })
     }
   }
 }

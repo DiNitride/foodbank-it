@@ -19,46 +19,44 @@ export default function Orders({}) {
   }
 
   return (
-    <Layout>
+    <DashboardLayout>
       <Head>
         <title>Orders</title>
       </Head>
-      <DashboardLayout>
-        <div className='m-2 flex flex-col'>
-          <h1 className='text-xl font-bold text-center mb-2'>Orders</h1>
-          { !data ? <p>Loading...</p> :
-          <table className='border border-collapse'>
-            <thead>
-              <tr>
-                <th className="border">ID</th>
-                <th className='border'>Ordered By</th>
-                <th className='border'>Status</th>
-                <th className='border'>Parcel</th>
-                <th className='border'>Ordered Placed</th>
+      <div className='m-2 flex flex-col'>
+        <h1 className='text-xl font-bold text-center mb-2'>Orders</h1>
+        { !data ? <p>Loading...</p> :
+        <table className='border border-collapse'>
+          <thead>
+            <tr>
+              <th className="border">ID</th>
+              <th className='border'>Ordered By</th>
+              <th className='border'>Status</th>
+              <th className='border'>Parcel</th>
+              <th className='border'>Ordered Placed</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((order, index) => {
+              return <tr key={order.OrderId} className='cursor-pointer' onClick={() => handleClick(index)}>
+                <td className='border p-2 text-center'>{ order.OrderId }</td>
+                <td className='border p-2'>{ order.UserForename } { order.UserSurname }</td>
+                <td className='border p-2 text-center'><OrderStatusPill status={order.OrderStatus} /></td>
+                <td className='border p-2 text-center'>{ order.OrderParcel ? `Order #${order.OrderParcel}` : '' }</td>
+                <td className='border p-2 text-center'>{ order.PrettyOrderOpened }</td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((order, index) => {
-                return <tr key={order.OrderId} className='cursor-pointer' onClick={() => handleClick(index)}>
-                  <td className='border p-2 text-center'>{ order.OrderId }</td>
-                  <td className='border p-2'>{ order.UserForename } { order.UserSurname }</td>
-                  <td className='border p-2 text-center'><OrderStatusPill status={order.OrderStatus} /></td>
-                  <td className='border p-2 text-center'>{ order.OrderParcel ? `Order #${order.OrderParcel}` : '' }</td>
-                  <td className='border p-2 text-center'>{ order.PrettyOrderOpened }</td>
-                </tr>
-              })}
-            </tbody>
-          </table>
-          }
-        </div>
-        { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><OrderDetails
-          order={data[selected]}
-          onDelete={() => { setModalOpen(false); mutate() }}
-          onEdit={() => { mutate() }}
-          onComplete={() => { setModalOpen(false); mutate() }}
-          onClose={() => mutate()}
-        /></Modal> : ''}
-      </DashboardLayout>
-    </Layout>
+            })}
+          </tbody>
+        </table>
+        }
+      </div>
+      { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><OrderDetails
+        order={data[selected]}
+        onDelete={() => { setModalOpen(false); mutate() }}
+        onEdit={() => { mutate() }}
+        onComplete={() => { setModalOpen(false); mutate() }}
+        onClose={() => mutate()}
+      /></Modal> : ''}
+    </DashboardLayout>
   )
 }

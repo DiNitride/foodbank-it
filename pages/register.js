@@ -82,8 +82,8 @@ export default function Register() {
     if (!r.ok && !error) {
       setErrors('Something went wrong... Please refresh and try again')
     }
-    if (success) setRegistered(true)
     if (error) setErrors([ error ])
+    if (success) setRegistered(true)
   }
 
   return (
@@ -91,27 +91,25 @@ export default function Register() {
       <Head>
         <title>Register</title>
       </Head>
-      <div className='m-2 flex justify-center'>
-        { !registered ?
-        <form onSubmit={handleSubmit} className='border rounded p-2 w-full md:w-1/3 flex flex-col align-middle justify-center'>
-          <FormItem onChange={handleChange} type='text' label='Forename' name='forename' value={user.forename} placeholder='Joe' required/>
-          <FormItem onChange={handleChange} type='text' label='Surname' name='surname' value={user.surname} placeholder='Bloggs' required />
-          <FormItem onChange={handleChange} type='text' label='Email' name='email' value={user.email} placeholder='joe.blogs@example.com' required />
-          <FormItem onChange={handleChange} type='password' label='Password' name='password' value={user.password} password='' placeholder='********' required />
-          <FormItem onChange={handleChange} type='text' label='Address Line One' name='address_line_one' value={user.address_line_one} placeholder='' required />
-          <FormItem onChange={handleChange} type='text' label='Address Line Two' name='address_line_two' value={user.address_line_two} placeholder='' />
-          <FormItem onChange={handleChange} type='text' label='Town' name='address_town' value={user.address_town} placeholder='' required />
-          <FormItem onChange={handleChange} type='text' label='Postcode' name='address_postcode' value={user.address_postcode} placeholder='' required />
-          <FormItem onChange={handleChange} type='text' label='Phone' name='phone' value={user.phone} placeholder='' required />
-          { errors.map((error) => (<p className='text text-red-500 text-center p-2'>{ error }</p>)) }
-          <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Register Account</button>
-        </form>
-        :
-        <div className='border p-5 rounded-xl text-center'>
-          <h1 className='text-xl font-semibold'>Account Registered</h1>
-          <p className='m-2 text-lg'>Please click <span onClick={() => signIn()} className='cursor-pointer underline'>here</span> to sign in</p>
-        </div>}
-      </div>
+      { !registered ?
+      <form onSubmit={handleSubmit} className='m-2 w-full sm:w-[600px] border rounded p-2 flex flex-col align-middle'>
+        <FormItem onChange={handleChange} type='text' label='Forename' name='forename' value={user.forename} placeholder='Joe' required/>
+        <FormItem onChange={handleChange} type='text' label='Surname' name='surname' value={user.surname} placeholder='Bloggs' required />
+        <FormItem onChange={handleChange} type='text' label='Email' name='email' value={user.email} placeholder='joe.blogs@example.com' required />
+        <FormItem onChange={handleChange} type='password' label='Password' name='password' value={user.password} password='' placeholder='********' required />
+        <FormItem onChange={handleChange} type='text' label='Address Line One' name='address_line_one' value={user.address_line_one} placeholder='' required />
+        <FormItem onChange={handleChange} type='text' label='Address Line Two' name='address_line_two' value={user.address_line_two} placeholder='' />
+        <FormItem onChange={handleChange} type='text' label='Town' name='address_town' value={user.address_town} placeholder='' required />
+        <FormItem onChange={handleChange} type='text' label='Postcode' name='address_postcode' value={user.address_postcode} placeholder='' required />
+        <FormItem onChange={handleChange} type='text' label='Phone' name='phone' value={user.phone} placeholder='' required />
+        { errors.map((error) => (<p className='text text-red-500 text-center p-2'>{ error }</p>)) }
+        <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Register Account</button>
+      </form>
+      :
+      <div className='m-2 border p-5 rounded-xl text-center'>
+        <h1 className='text-xl font-semibold'>Account Registered</h1>
+        <p className='m-2 text-lg'>Please click <span onClick={() => signIn(undefined, { callbackUrl: '/' })} className='cursor-pointer underline'>here</span> to sign in</p>
+      </div>}
     </Layout>
   )
 }

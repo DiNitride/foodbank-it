@@ -8,7 +8,7 @@ import Modal from '../../components/Modal'
 import CreateReferralForm from "../../components/CreateReferralForm"
 
 export default function Donations({}) {
-  let { data, error } = useSWR('/api/donations/stock')
+  let { data, error } = useSWR('/api/feedback')
 
   return (
     <DashboardLayout>
@@ -18,25 +18,19 @@ export default function Donations({}) {
       <div className='m-2 flex flex-col'>
         <h1 className='text-xl font-bold text-center mb-2'>Donations</h1>
         { !data ? <p>Loading...</p> :
-        <table className='border border-collapse'>
+        <table className='border border-collapse table-fixed'>
           <thead>
             <tr>
-              <th className="border">ID</th>
-              <th className='border'>Organisation</th>
-              <th className='border'>User</th>
-              <th className='border'>Donation</th>
-              <th classNAme='border'>Recieved</th>
+              <th className='border'>Feedback</th>
+              <th className='border'>Recieved</th>
             </tr>
           </thead>
           <tbody>
             { data.length !== 0 ?
-            data.map((donation) => {
-              return <tr key={donation.DonationId}>
-                <td className='border p-2 text-center'>{ donation.DonationId }</td>
-                <td className='border p-2'>{ donation.OrganisationName }</td>
-                <td className='border p-2'>{ donation.UserForename } { donation.UserSurname }</td>
-                <td className='border p-2 whitespace-pre'>{ donation.DonationText }</td>
-                <td className='border p-2'>{ donation.DonationRecieved }</td>
+            data.map((feedback) => {
+              return <tr key={feedback.FeedbackId}>
+                <td className='border p-2 whitespace-pre w-full'>{ feedback.FeedbackText }</td>
+                <td className='border p-2 text-center w-auto whitespace-nowrap'>{ feedback.PrettyFeedbackRecieved }</td>
               </tr>
             }) : <tr><td colSpan={5} className="text-center border">No donations</td></tr> }
           </tbody>

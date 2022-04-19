@@ -16,38 +16,48 @@ export default function Staff({}) {
     mutate()
   }
 
+  let handleDelete = async (id) => {
+    let r = await fetch(`/api/staff/${id}`, {
+      method: 'DELETE'
+    })
+    if (!r.ok) {
+      let { error } = await r.json()
+      alert(error)
+    }
+    mutate()
+  }
+
   return (
-    <Layout>
+    <DashboardLayout>
       <Head>
         <title>Staff</title>
       </Head>
-      <DashboardLayout>
-        <div className='m-2 flex flex-col'>
-          <h1 className='text-xl font-bold text-center'>Staff</h1>
-          { !staff ? <p>Loading...</p> :
-          <table className='border border-collapse'>
-            <thead>
-              <tr>
-                <th className="border">Username</th>
-                <th className='border'>Name</th>
-                <th className='border'>Admin</th>
+      <div className='m-2 flex flex-col'>
+        <h1 className='text-xl font-bold text-center'>Staff</h1>
+        { !staff ? <p>Loading...</p> :
+        <table className='border border-collapse'>
+          <thead>
+            <tr>
+              <th className="border">Username</th>
+              <th className='border'>Name</th>
+              <th className='border'>Admin</th>
+            </tr>
+          </thead>
+          <tbody>
+            {staff.map((user) => {
+              return <tr key={user.UserId}>
+                <td className='border p-2'>{ user.UserUsername }</td>
+                <td className='border p-2'>{ user.UserForename } { user.UserSurname }</td>
+                <td className='border p-2'>{ user.Admin ? 'Yes' : 'No' }</td>
+                <td className='border p-2 text-center cursor-pointer' onClick={() => handleDelete(user.UserId)}><FontAwesomeIcon icon='trash' /></td>
               </tr>
-            </thead>
-            <tbody>
-              {staff.map((user) => {
-                return <tr>
-                  <td className='border p-2'>{ user.UserUsername }</td>
-                  <td className='border p-2'>{ user.UserForename } { user.UserSurname }</td>
-                  <td className='border p-2'>{ user.Admin ? 'Yes' : 'No' }</td>
-                </tr>
-              })}
-            </tbody>
-          </table>
-          }
-          <button className="mt-2" onClick={() => setModalOpen(true)}><FontAwesomeIcon icon='square-plus' size='xl' /></button>
-          { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><CreateStaffForm onSuccess={handleSuccess}/></Modal> : ""}
-        </div>
-      </DashboardLayout>
-    </Layout>
+            })}
+          </tbody>
+        </table>
+        }
+        <button className="mt-2" onClick={() => setModalOpen(true)}><FontAwesomeIcon icon='square-plus' size='xl' /></button>
+        { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><CreateStaffForm onSuccess={handleSuccess}/></Modal> : ""}
+      </div>
+    </DashboardLayout>
   )
 }

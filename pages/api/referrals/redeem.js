@@ -1,4 +1,4 @@
-import { getCode, redeemCode } from "../../../lib/codes"
+import { getCode, getCodeByCode, redeemCode } from "../../../lib/codes"
 import { getSession } from "next-auth/react"
 import { createOrder } from "../../../lib/orders"
 import api from "../../../lib/api"
@@ -13,7 +13,7 @@ export default api({
 
 async function post(req, res, session) {
   let { code } = req.body
-  let exists = await getCode(code)
+  let exists = await getCodeByCode(code)
   if (!exists) {
     res.status(400).json({ error: 'Could not redeem referral code, it does not exist'})
     return

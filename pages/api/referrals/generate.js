@@ -1,4 +1,4 @@
-import { generateCode, getCode, insertCode } from "../../../lib/codes"
+import { generateCode, getCodeByCode, insertCode } from "../../../lib/codes"
 import { getSession } from 'next-auth/react'
 import api from '../../../lib/api'
 
@@ -20,7 +20,7 @@ async function post(req, res, session) {
       return
     }
     code = generateCode()
-    let exists = await getCode(code)
+    let exists = await getCodeByCode(code)
     if (!exists) {
       break
     }

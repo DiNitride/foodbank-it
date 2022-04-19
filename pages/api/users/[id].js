@@ -1,4 +1,4 @@
-import { getOneUserById, getUser, getUserPassword, updateUserDetails, updateUserPassword } from "../../../lib/users"
+import { deleteUser, getOneUserById, getUser, getUserPassword, updateUserDetails, updateUserPassword } from "../../../lib/users"
 import { getSession } from "next-auth/react"
 import { hash, verify } from "../../../lib/passwords"
 import api from "../../../lib/api"
@@ -13,6 +13,11 @@ export default api({
   'PATCH': {
     authenticated: true,
     handler: patch
+  },
+  'DELETE': {
+    authenticated: true,
+    roles: ['admin', 'client'],
+    handler: deleteHandler
   }
 })
 
@@ -52,5 +57,15 @@ async function patch(req, res, session) {0
   } else {
     console.log('/???')
     res.status(403).json({ error: 'You do not have permission to modify this user'})
+  }
+}
+
+async function deleteHandler(req, res, session) {
+  let { id } = req.query
+  if (session.user.admin || session.user.UserId === Number.parseInt(id)) {
+    await deleteUser(id)
+    res.json({ success: true })
+  } else {
+    res.status(403).json({ error: 'You do not have permission to delete this user'})
   }
 }

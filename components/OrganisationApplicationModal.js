@@ -39,8 +39,8 @@ export default function OrganisationApplicationModal({ id, closeModal }) {
 
         <h2 className='font-bold mt-2'>Applicant</h2>
         <p>{ data.OrganisationApplicantForename } { data.OrganisationApplicantForename }</p>
-        <p><FontAwesomeIcon icon='envelope' className="pr-2" />{ data.OrganisationApplicantEmail }</p>
-        <p><FontAwesomeIcon icon='phone' className="pr-2" />{ data.OrganisationApplicantPhone }</p>
+        <p><FontAwesomeIcon icon='envelope' className="pr-2" />{ data.OrganisationContactEmail }</p>
+        <p><FontAwesomeIcon icon='phone' className="pr-2" />{ data.OrganisationContactPhone }</p>
 
 
         <div className="flex justify-around mt-5">

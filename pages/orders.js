@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Layout from "../../components/Layout";
+import Layout from "../components/Layout";
 import useSWR from "swr";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import Modal from "../../components/Modal";
-import SubmitReferralForm from "../../components/SubmitReferralForm";
-import OrderStatusPill from '../../components/OrderStatusPill'
+import Modal from "../components/Modal";
+import SubmitReferralForm from "../components/SubmitReferralForm";
+import OrderStatusPill from '../components/OrderStatusPill'
 
 export default function Orders({}) {
   let [modalOpen, setModalOpen] = useState(false)
@@ -14,6 +14,17 @@ export default function Orders({}) {
   let handleSuccess = async () => {
     setModalOpen(false)
     await mutate()
+  }
+
+  let handleDelete = async (id) => {
+    let r = await fetch(`/api/orders/${id}`, {
+      method: 'DELETE'
+    })
+    if (!r.ok) {
+      let { error } = await r.json()
+      alert(error)
+    }
+    mutate()
   }
 
   return (
@@ -37,10 +48,11 @@ export default function Orders({}) {
               <tbody>
                 {data.map((order) => {
                   return <tr key={order.OrderId}>
-                    <td className='border p-2'>{ order.OrderId }</td>
-                    <td className='border p-2'>{ order.UserForename } { order.UserSurname }</td>
-                    <td className='border p-2'><OrderStatusPill status={order.OrderStatus} /></td>
-                    <td className='border p-2'>{ order.PrettyOrderOpened }</td>
+                    <td className='border p-2 text-center'>{ order.OrderId }</td>
+                    <td className='border p-2 text-center'>{ order.UserForename } { order.UserSurname }</td>
+                    <td className='border p-2 text-center'><OrderStatusPill status={order.OrderStatus} /></td>
+                    <td className='border p-2 text-center'>{ order.PrettyOrderOpened }</td>
+                    <td className='border p-2 text-center' onClick={() => handleDelete(order.OrderId)}>{ order.OrderStatus === 'open' ? <FontAwesomeIcon icon='trash' /> : ''}</td>
                   </tr>
                 })}
               </tbody>

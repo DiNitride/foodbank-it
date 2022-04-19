@@ -7,11 +7,13 @@ import Modal from "../components/Modal";
 import UpdatePasswordForm from "../components/UpdatePasswordForm"
 import UpdateDetailsForm from "../components/UpdateDetailsForm";
 import useSWR from "swr";
+import DeleteAccountForm from "../components/DeleteAccountForm";
 
 export default function me({}) {
   let { data: session, status } = useSession()
   let [passwordModalOpen, setPasswordModalOpen] = useState(false)
   let [detailsModalOpen, setDetailsModalOpen] = useState(false)
+  let [deleteModalOpen, setDeleteModalOpen] = useState(false)
   let { data: user, error, mutate } = useSWR('/api/users/me')
   let router = useRouter()
 
@@ -31,7 +33,7 @@ export default function me({}) {
       <Head>
         <title>My Details</title>
       </Head>
-      <div className='my-2 mx-auto min-w-[500px]'>
+      <div className='m-2 w-full sm:w-[600px]'>
         { !user ? <p>Loading...</p> : <>
           <div>
             <h1 className="text-xl text-center underline mb-2">Details for { user.UserForename }</h1>
@@ -67,11 +69,13 @@ export default function me({}) {
             { user.type === 'client' ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Update Contact Details</button> : '' }
             <button className='p-1 border rounded bg-secondary my-1' onClick={() => setPasswordModalOpen(true)}>Update Password</button>
             { user.manager === true ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Transfer Organisation Ownership</button> : '' }
+            { user.type === 'client' ?<button className='p-1 border rounded bg-red-500 my-1' onClick={() => setDeleteModalOpen(true)}>Delete Account</button> : '' }
           </div>
         </> }
         
         { passwordModalOpen ? <Modal closeModal={() => setPasswordModalOpen(false)}><UpdatePasswordForm userId={session.user.UserId} onSuccess={() => setPasswordModalOpen(false)} /></Modal> : '' }
         { detailsModalOpen ? <Modal closeModal={() => setDetailsModalOpen(false)}><UpdateDetailsForm user={session.user} onSuccess={() => setDetailsModalOpen(false)} /></Modal> : ''}
+        { deleteModalOpen ? <Modal closeModal={() => setDeleteModalOpen(false)}><DeleteAccountForm user={session.user} /></Modal> : ''}
       </div>
     </Layout>
   )

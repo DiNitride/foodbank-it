@@ -7,16 +7,14 @@ import Layout from "../../components/Layout"
 export default function Inventory({}) {
 
   return (
-    <Layout>
+    <DashboardLayout>
       <Head>
         <title>Inventory</title>
       </Head>
-      <DashboardLayout>
-        <div className='m-2 flex flex-col items-center'>
-          <h1 className='text-xl font-bold'>Inventory</h1>
-          
-        </div>
-      </DashboardLayout>
-    </Layout>
+      <div className='m-2 flex flex-col items-center'>
+        <h1 className='text-xl font-bold'>Inventory</h1>
+        
+      </div>
+    </DashboardLayout>
   )
 }

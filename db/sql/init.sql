@@ -65,8 +65,8 @@ CREATE TABLE `Organisation` (
   `OrganisationType` enum('supplier','support') NOT NULL,
   `OrganisationApplicantForename` varchar(255) NOT NULL,
   `OrganisationApplicantSurname` varchar(255) NOT NULL,
-  `OrganisationApplicantEmail` varchar(255) NOT NULL,
-  `OrganisationApplicantPhone` varchar(255) NOT NULL,
+  `OrganisationContactEmail` varchar(255) NOT NULL,
+  `OrganisationContactPhone` varchar(255) NOT NULL,
   PRIMARY KEY (`OrganisationId`),
   FOREIGN KEY (`OrganisationManagerId`) REFERENCES `User` (`UserId`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -106,12 +106,12 @@ CREATE TABLE `CashTransaction` (
 CREATE TABLE `Feedback` (
   `FeedbackId` int(11) NOT NULL AUTO_INCREMENT,
   `FeedbackText` text NOT NULL,
-  `FeedbackFrom` int(11),
-  `FeedbackReviewed` tinyint NOT NULL,
-  `FeedbackReviewedBy` int(11),
+  `FeedbackReviewed` tinyint(4) NOT NULL,
+  `FeedbackReviewedBy` int(11) DEFAULT NULL,
+  `FeedbackRecieved` datetime NOT NULL,
   PRIMARY KEY (`FeedbackId`),
-  CONSTRAINT FOREIGN KEY (`FeedbackFrom`) REFERENCES `User` (`UserId`) ON DELETE SET NULL,
-  CONSTRAINT FOREIGN KEY (`FeedbackReviewedBy`) REFERENCES `Staff` (`StaffId`) ON DELETE SET NULL
+  KEY `FeedbackReviewedBy` (`FeedbackReviewedBy`),
+  CONSTRAINT `feedback_ibfk_1` FOREIGN KEY (`FeedbackReviewedBy`) REFERENCES `Staff` (`StaffId`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `Order` (

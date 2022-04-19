@@ -20,41 +20,39 @@ export default function Parcels({}) {
   }
 
   return ( 
-    <Layout>
+    <DashboardLayout>
       <Head>
         <title>Available Parcels</title>
       </Head>
-      <DashboardLayout>
-        <div className='m-2 flex flex-col items-center'>
-          <h1 className='text-xl font-bold mb-1'>Parcels</h1>
-          { !data ? <p>Loading...</p> :
-          <table className='border border-collapse text-center'>
-            <thead>
-              <tr>
-                <th className="border p-2">ID</th>
-                <th className="border p-2">Details</th>
-                <th className='border p-2'>Complete?</th>
+      <div className='m-2 flex flex-col items-center'>
+        <h1 className='text-xl font-bold mb-1'>Parcels</h1>
+        { !data ? <p>Loading...</p> :
+        <table className='border border-collapse text-center table-fixed'>
+          <thead>
+            <tr>
+              <th className="border p-2 w-auto">ID</th>
+              <th className="border p-2 w-full">Details</th>
+              <th className='border p-2 w-auto'>Complete?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((parcel, index) => {
+              return <tr key={parcel.OrderId} className='cursor-pointer' onClick={() => { setSelected(index); setModalOpen(true)}}>
+                <td className='border p-2'>{ parcel.ParcelId }</td>
+                <td className='border p-2 text-left whitespace-pre'>{ parcel.ParcelDetails ? parcel.ParcelDetails : <div className="text-center">-</div> }</td>
+                <td className='border p-2'>{ parcel.ParcelComplete ? 'Yes' : 'No' }</td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((parcel, index) => {
-                return <tr key={parcel.OrderId} className='cursor-pointer' onClick={() => { setSelected(index); setModalOpen(true)}}>
-                  <td className='border p-2'>{ parcel.ParcelId }</td>
-                  <td className='border p-2 text-left whitespace-pre'>{ parcel.ParcelDetails }</td>
-                  <td className='border p-2'>{ parcel.ParcelComplete ? 'Yes' : 'No' }</td>
-                </tr>
-              })}
-            </tbody>
-          </table>
-          }
-          <button className="mt-2" onClick={handleCreate}><FontAwesomeIcon icon='square-plus' size='xl' /></button>
-        </div>
-      </DashboardLayout>
+            })}
+          </tbody>
+        </table>
+        }
+        <button className="mt-2" onClick={handleCreate}><FontAwesomeIcon icon='square-plus' size='xl' /></button>
+      </div>
       { modalOpen ? <Modal closeModal={() => setModalOpen(false)}><EditParcelForm
         parcel={data[selected]}
         onDelete={() => { setModalOpen(false); mutate() }}
         onSave={() => { setModalOpen(false); mutate() }}
       /></Modal> : ''}
-    </Layout>
+    </DashboardLayout>
   )
 }

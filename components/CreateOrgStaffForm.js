@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 
-export default function CreateStaffForm({ onSuccess, onError }) {
+export default function CreateOrgStaffForm({ organisationId, onSuccess, onError }) {
   let [user, setUser] = useState({
     forename: '',
     surname: '',
@@ -32,7 +32,7 @@ export default function CreateStaffForm({ onSuccess, onError }) {
       setError('Invalid Surname')
       return
     }
-    let r = await fetch('/api/staff', {
+    let r = await fetch(`/api/organisations/${organisationId}/staff`, {
       method: 'POST',
       body: JSON.stringify({ user }),
       headers: {'Content-Type': 'application/json'}
@@ -41,7 +41,8 @@ export default function CreateStaffForm({ onSuccess, onError }) {
       if (onError) {
         onError()
       } else {
-        setError('An error occured whilst creating staff account')
+        let { error } = await r.json()
+        setError(error ? error : 'An error occured whilst creating staff account')
       }
     } else {
       if (onSuccess) {
