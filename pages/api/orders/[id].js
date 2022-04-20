@@ -48,8 +48,6 @@ async function post(req, res, session) {
 async function deleteHandler(req, res, session) {
   let { id } = req.query
   let order = await getOrder(id)
-  console.log(order)
-  console.log(session.user)
   if (session.user.type === 'staff' || order.UserId === session.user.UserId) {
     await deleteOrder(id)
     res.json({ success: true })

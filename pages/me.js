@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Layout from "../components/Layout";
-import { useSession } from "next-auth/react"
+import { getSession, useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import Modal from "../components/Modal";
@@ -8,12 +8,15 @@ import UpdatePasswordForm from "../components/UpdatePasswordForm"
 import UpdateDetailsForm from "../components/UpdateDetailsForm";
 import useSWR from "swr";
 import DeleteAccountForm from "../components/DeleteAccountForm";
+import EditOrgManagerForm from "../components/EditOrgManagerForm";
+import reloadSession from '../lib/session'
 
 export default function me({}) {
   let { data: session, status } = useSession()
   let [passwordModalOpen, setPasswordModalOpen] = useState(false)
   let [detailsModalOpen, setDetailsModalOpen] = useState(false)
   let [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  let [transferOwnershipModalOpen, setTransferOwnershipModalOpen] = useState(false)
   let { data: user, error, mutate } = useSWR('/api/users/me')
   let router = useRouter()
 
@@ -68,14 +71,15 @@ export default function me({}) {
             <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Update Personal Details</button>
             { user.type === 'client' ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Update Contact Details</button> : '' }
             <button className='p-1 border rounded bg-secondary my-1' onClick={() => setPasswordModalOpen(true)}>Update Password</button>
-            { user.manager === true ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Transfer Organisation Ownership</button> : '' }
+            { user.manager === true ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setTransferOwnershipModalOpen(true)}>Transfer Organisation Ownership</button> : '' }
             { user.type === 'client' ?<button className='p-1 border rounded bg-red-500 my-1' onClick={() => setDeleteModalOpen(true)}>Delete Account</button> : '' }
           </div>
         </> }
         
-        { passwordModalOpen ? <Modal closeModal={() => setPasswordModalOpen(false)}><UpdatePasswordForm userId={session.user.UserId} onSuccess={() => setPasswordModalOpen(false)} /></Modal> : '' }
-        { detailsModalOpen ? <Modal closeModal={() => setDetailsModalOpen(false)}><UpdateDetailsForm user={session.user} onSuccess={() => setDetailsModalOpen(false)} /></Modal> : ''}
-        { deleteModalOpen ? <Modal closeModal={() => setDeleteModalOpen(false)}><DeleteAccountForm user={session.user} /></Modal> : ''}
+        { passwordModalOpen ? <Modal closeModal={() => setPasswordModalOpen(false)}><UpdatePasswordForm userId={user.UserId} onSuccess={() => setPasswordModalOpen(false)} /></Modal> : '' }
+        { detailsModalOpen ? <Modal closeModal={() => setDetailsModalOpen(false)}><UpdateDetailsForm user={user} onSuccess={() => { setDetailsModalOpen(false); mutate() }} /></Modal> : ''}
+        { deleteModalOpen ? <Modal closeModal={() => setDeleteModalOpen(false)}><DeleteAccountForm user={user} /></Modal> : ''}
+        { transferOwnershipModalOpen ? <Modal closeModal={() => setTransferOwnershipModalOpen()}><EditOrgManagerForm organisation={user.organisation} manager={user} onTransfer={() => { setTransferOwnershipModalOpen(false); mutate(); reloadSession();}} /></Modal> : ''}
       </div>
     </Layout>
   )

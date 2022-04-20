@@ -25,7 +25,7 @@ async function post(req, res, session) {
 
   // Code exists!
   // get user who is signed in
-  if (exists.AssignedName !== session.user.UserSurname) {
+  if (exists.AssignedName.toLowerCase() !== session.user.UserSurname.toLowerCase()) {
     // Code is not for this user
     res.status(400).json({ error: 'Your name is not assigned to this referral code'})
     return

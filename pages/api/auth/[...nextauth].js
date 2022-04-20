@@ -34,11 +34,9 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) {
-        // console.log('Populating JWT')
-        let details = await getUserDetails(user.UserId)
-        token.user = { ...user, ...details }
-      }
+      let id = user ? user.UserId : token.user.UserId
+      let details = await getUserDetails(id)
+      token.user = user ? { ...user, ...details} : { ...token.user, ...details }
       return token
     },
     async session({ session, token, user }) {

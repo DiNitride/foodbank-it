@@ -5,6 +5,7 @@ import DashboardLayout from "../../components/DashboardLayout"
 import Layout from "../../components/Layout"
 import OrganisationApplicationModal from "../../components/OrganisationApplicationModal"
 import Head from 'next/head'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 export default function Organisations({}) {
   let { data: dataOrganisations, error: errorOrganisations, mutate: mutateOrganisations } = useSWR('/api/organisations')
@@ -67,7 +68,7 @@ export default function Organisations({}) {
               return <tr>
                 <td className='border p-2'>{ organisation.OrganisationName }</td>
                 <td className='border p-2'>{ prettyType[organisation.OrganisationType] }</td>
-                <td className='border p-2'>{ organisation.OrganisationManagerForename }</td>
+                <td className='border p-2'>{ organisation.OrganisationManagerForename } { organisation.OrganisationApplicantSurname }</td>
                 <td className='border p-2 hidden md:table-cell'>{ organisation.OrganisationAddressLineOne }</td>
                 <td className='border p-2 hidden md:table-cell'>{ organisation.OrganisationAddressLineTwo }</td>
                 <td className='border p-2 hidden md:table-cell'>{ organisation.OrganisationAddressTown }</td>

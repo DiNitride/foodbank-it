@@ -3,9 +3,16 @@ import DashboardLayout from "../../components/DashboardLayout"
 import Layout from "../../components/Layout"
 import Head from 'next/head'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useState } from "react"
+import Modal from '../../components/Modal'
+import AdminResetPasswordForm from "../../components/AdminResetPasswordForm"
+import { useSession } from "next-auth/react"
 
 export default function Users({}) {
   let { data: users, error: errorUsers, mutate } = useSWR('/api/clients')
+  let { data: session, status } = useSession()
+  let [passwordResetModalOpen, setPasswordResetModalOpen] = useState()
+  let [selected, setSelected] = useState(null)
 
   let handleDelete = async (id) => {
     let r = await fetch(`/api/users/${id}`, {
@@ -45,12 +52,14 @@ export default function Users({}) {
                 <td className='border p-2 hidden lg:table-cell'>{ user.ClientAddressLineTwo }</td>
                 <td className='border p-2 hidden lg:table-cell'>{ user.ClientAddressTown }</td>
                 <td className='border p-2 hidden lg:table-cell'>{ user.ClientAddressPostcode }</td>
-                <td className='border p-2 text-center cursor-pointer' onClick={() => handleDelete(user.UserId)}><FontAwesomeIcon icon='trash' /></td>
+                { session && session.user.admin ? <td className='border p-2 text-center cursor-pointer' onClick={() => { setSelected(user.UserId); setPasswordResetModalOpen(true) }}><FontAwesomeIcon icon='pen-to-square' /></td> : '' }
+                { session && session.user.admin ? <td className='border p-2 text-center cursor-pointer' onClick={() => handleDelete(user.UserId)}><FontAwesomeIcon icon='trash' /></td> : '' }
               </tr>
             })}
           </tbody>
         </table>
         }
+        { passwordResetModalOpen ? <Modal closeModal={() => setPasswordResetModalOpen(false)}><AdminResetPasswordForm userId={selected} onSuccess={() => setPasswordResetModalOpen(false)} /></Modal> : ''}
       </div>
     </DashboardLayout>
   )

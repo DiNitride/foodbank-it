@@ -9,8 +9,6 @@ import Layout from '../components/Layout'
 import { getAvailableParcels } from '../lib/parcels'
 
 export default function Parcels({ parcels }) {
-  console.log(parcels)
-
   return (
     <Layout>
       <Head>

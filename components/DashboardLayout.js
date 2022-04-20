@@ -39,7 +39,6 @@ export default function DashboardLayout({ children }) {
   }
 
   let viewedApps = session.user.admin ? apps : Object.entries(apps).reduce((apps, [name, app]) => !app.admin ? { ...apps, [name]: app } : apps, {})
-  console.log(viewedApps)
 
   return (
     <Layout mainStyling='flex flex-col grow'>

@@ -34,28 +34,37 @@ async function get(req, res, session) {
 
 async function patch(req, res, session) {0
   let { id } = req.query
-  if (session.user.admin === 1 || session.user.UserId === Number.parseInt(id)) {
+  if (session.user.admin || session.user.UserId === Number.parseInt(id)) {
     let { action, payload } = req.body
-    if (action === 'updatePassword') {
+    if (action === 'updatePassword' || action === 'resetPassword') {
       let { old, new: newPass } = payload
-      let { UserPassword: current } = await getUserPassword(session.user.UserId)
-      let passwordCorrect = await verify(current, old)
-      if (!passwordCorrect) {
-        res.status(400).json({ error: 'Incorrect password entered'})
+      if (newPass === '') {
+        res.status(400).json({ error: 'New password cannot be blank'})
         return
       }
+
+      if (action !== 'resetPassword' && !session.user.admin) {
+        let { UserPassword: current } = await getUserPassword(session.user.UserId)
+        let passwordCorrect = await verify(current, old)
+        if (!passwordCorrect) {
+          res.status(400).json({ error: 'Incorrect password entered'})
+          return
+        }
+      }
+
       let hashed = await hash(newPass)
-      await updateUserPassword(hashed)
+      await updateUserPassword(id, hashed)
       res.json({ success: true })
+
     } else if (action === 'updateDetails') {
       let { forename, surname } = payload
       await updateUserDetails(id, forename, surname)
       res.json({ success: true })
+      
     } else {
       res.status(400).json({ error: 'Invalid PATCH action' })
     }
   } else {
-    console.log('/???')
     res.status(403).json({ error: 'You do not have permission to modify this user'})
   }
 }
