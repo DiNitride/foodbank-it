@@ -2,6 +2,8 @@ import '../styles/globals.css'
 import { SessionProvider } from 'next-auth/react'
 import { SWRConfig } from 'swr'
 
+import "react-datepicker/dist/react-datepicker.css";
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars, faBox, faBuilding, faCheck, faComment, faEnvelope, faFloppyDisk, faMoneyBill, faPenToSquare, faPhone, faSquarePlus, faStore, faTicket, faTrash, faUserGroup, faUserTie, faXmark } from '@fortawesome/free-solid-svg-icons'
 

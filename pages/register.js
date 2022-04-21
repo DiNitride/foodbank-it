@@ -9,7 +9,7 @@ import Layout from '../components/Layout'
 
 function FormItem({ onChange, label, type, name, value, placeholder, required }) {
   return <div className='flex flex-col m-2'>
-    <label className={`${required ? 'after:content-[\'*\'] after:ml-0.5 after:text-red-500' : ''}`}>{ label }</label>
+    <label className={`${required ? 'after:content-[\'*\'] after:ml-0.5 after:text-danger' : ''}`}>{ label }</label>
     <input className='border rounded p-2 ' onChange={onChange} type={type} name={name} value={value} placeholder={placeholder} />
   </div>
 }
@@ -102,7 +102,7 @@ export default function Register() {
         <FormItem onChange={handleChange} type='text' label='Town' name='address_town' value={user.address_town} placeholder='' required />
         <FormItem onChange={handleChange} type='text' label='Postcode' name='address_postcode' value={user.address_postcode} placeholder='' required />
         <FormItem onChange={handleChange} type='text' label='Phone' name='phone' value={user.phone} placeholder='' required />
-        { errors.map((error) => (<p className='text text-red-500 text-center p-2'>{ error }</p>)) }
+        { errors.map((error) => (<p className='text text-danger text-center p-2'>{ error }</p>)) }
         <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Register Account</button>
       </form>
       :

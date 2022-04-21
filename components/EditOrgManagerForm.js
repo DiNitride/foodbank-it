@@ -43,11 +43,11 @@ export default function EditOrgManagerForm({ organisation, manager, onTransfer }
       <button type='submit'>Test</button>
       <h2 className='text-center underline text-lg my-1'>Transfer Ownership for { organisation.OrganisationName }</h2>
       <p>You cannot undo this action yourself once saved!</p>
-      <select className="p-2 rounded-lg my-1" value={selected} onChange={handleChange}>
+      <select className="p-2 rounded-lg my-1 bg-secondary" value={selected} onChange={handleChange}>
         <option value='' disabled>Select User</option>
         { staff && staff.map((user, index) => <option key={user.UserId} value={index}>{ user.UserForename } { user.UserSurname }</option>)}
       </select>
-      <p className='text-center text-sm text-red-500'>{ error }</p>
+      <p className='text-center text-sm text-danger'>{ error }</p>
       <button onClick={handleSubmit} className="p-1 my-1 bg-red-500 rounded-lg font-semibold">Submit</button>
     </form>
   )

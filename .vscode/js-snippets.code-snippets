@@ -1,0 +1,75 @@
+{
+	// Place your foodbank-it workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+
+	"API Base": {
+		"scope": "javascript",
+		"prefix": "api",
+		"body": [
+			"export defualt api({",
+			"  'GET': {",
+			"    handler: get",
+			"  }",
+			"})"
+		],
+		"description": "Creates a new get handler for an API function"
+	},
+
+	"API Get Method": {
+		"scope": "javascript",
+		"prefix": "get",
+		"body": [
+			"async function get(req, res, session) {",
+			"  $0",
+			"}"
+		],
+		"description": "Creates a new get handler for an API function"
+	},
+
+	"API Post Method": {
+		"scope": "javascript",
+		"prefix": "post",
+		"body": [
+			"async function post(req, res, session) {",
+			"  $0",
+			"}"
+		],
+		"description": "Creates a new post handler for an API function"
+	},
+
+	"API Patch Method": {
+		"scope": "javascript",
+		"prefix": "patch",
+		"body": [
+			"async function patch(req, res, session) {",
+			"  $0",
+			"}"
+		],
+		"description": "Creates a new patch handler for an API function"
+	},
+
+	"API Delete Method": {
+		"scope": "javascript",
+		"prefix": "delete",
+		"body": [
+			"async function _delete(req, res, session) {",
+			"  $0",
+			"}"
+		],
+		"description": "Creates a new delete handler for an API function"
+	},
+}

@@ -57,7 +57,7 @@ export default function CreateStaffForm({ onSuccess, onError }) {
       <input ref={inputRef} type='text' name='forename' value={user.forename} onChange={handleChange} className='border rounded p-1 my-1'></input>
       <label>Surname</label>
       <input type='text' name='surname' value={user.surname} onChange={handleChange} className='border rounded p-1 my-1'></input>
-      { error ? <p className='text-red-600 text-sm'>{error}</p> : ''}
+      { error ? <p className='text-danger text-sm'>{error}</p> : ''}
       <button onClick={handleSubmit} className='p-1 mt-1 border rounded bg-secondary'>Create Account</button>
     </form>
   )

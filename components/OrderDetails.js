@@ -131,7 +131,7 @@ export default function OrderDetails({ order, onDelete, onComplete, onEdit, onEr
             { !editMode ? <td className='p-1 text-right'>Parcel #{ order.OrderParcel ? order.OrderParcel : '-' }</td> :
               <td className='text-right'>
                 { !availableParcels ? <p>Loading available parcels</p> :
-                  <select className='rounded p-1' value={selected} onChange={handleParcelChange}>
+                  <select className='rounded p-1 bg-secondary' value={selected} onChange={handleParcelChange}>
                     <option value='' disabled selected>Select Parcel</option>
                     { availableParcels.map((parcel, index) => <option key={parcel.ParcelId} value={index}>Parcel #{parcel.ParcelId}</option>)}
                   </select>
@@ -158,7 +158,7 @@ export default function OrderDetails({ order, onDelete, onComplete, onEdit, onEr
         </div>
       </> : ''}
       
-      <p className='text-red-600 text-center'>{ error }</p>
+      <p className='text-danger text-center'>{ error }</p>
     </div>
   )
 }

@@ -9,7 +9,7 @@ import Layout from '../../components/Layout'
 
 function FormItem({ onChange, label, type, name, value, placeholder, required }) {
   return <div className='flex flex-col m-2'>
-    <label className={`${required ? 'after:content-[\'*\'] after:ml-0.5 after:text-red-500' : ''}`}>{ label }</label>
+    <label className={`${required ? 'after:content-[\'*\'] after:ml-0.5 after:text-danger' : ''}`}>{ label }</label>
     <input className='border rounded p-2 ' onChange={onChange} type={type} name={name} value={value} placeholder={placeholder} />
   </div>
 }
@@ -103,7 +103,7 @@ export default function Apply() {
         <p className='text-center mt-2 text-lg underline'>Partner Agency Application Form</p>
         <FormItem onChange={handleChange} type='text' label='Name' name='org_name' value={organisation.org_name} placeholder='' required />
         <div className='flex flex-col m-2'>
-          <label className={'after:content-[\'*\'] after:ml-0.5 after:text-red-500'}>Agency Type</label>
+          <label className={'after:content-[\'*\'] after:ml-0.5 after:text-danger'}>Agency Type</label>
           <div>
             <label className='mr-2'>Supplier Business</label>
             <input type='radio' id='supplier' name='org_type' value='supplier' checked={organisation.org_type === 'supplier'} onChange={handleChange} />
@@ -113,7 +113,7 @@ export default function Apply() {
           </div>
         </div>
         <div className='flex flex-col m-2'>
-          <label className={'after:content-[\'*\'] after:ml-0.5 after:text-red-500'}>Description</label>
+          <label className={'after:content-[\'*\'] after:ml-0.5 after:text-danger'}>Description</label>
           <textarea className='border rounded p-2 h-[200px]' onChange={handleChange} type='text' name='org_description' value={organisation.org_description} placeholder='' />
         </div>
         <FormItem onChange={handleChange} type='text' label='Address Line One' name='org_address_line_one' value={organisation.org_address_line_one} placeholder='' required />
@@ -126,7 +126,7 @@ export default function Apply() {
         <FormItem onChange={handleChange} type='text' label='Email' name='applicant_email' value={organisation.applicant_email} placeholder='joe.blogs@example.com' required />
         <FormItem onChange={handleChange} type='text' label='Phone' name='applicant_phone' value={organisation.applicant_phone} placeholder='' required />
         { errors !== [] ? errors.map((error, i) => (
-          <p key={i} className='text text-red-500 text-center p-2'>{ error }</p>
+          <p key={i} className='text text-danger text-center p-2'>{ error }</p>
         )) : ""}
         <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Apply</button>
       </form>

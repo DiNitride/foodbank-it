@@ -43,7 +43,7 @@ export default function CreateReferralForm({ onSuccess, onError }) {
       <h2 className='text-center underline text-lg'>New Referral</h2>
       <label>Referee Surname</label>
       <input ref={inputRef} type='text' value={name} onChange={handleChange} className='border rounded p-1 my-1'></input>
-      { error ? <p className='text-red-600 text-sm'>{error}</p> : ''}
+      { error ? <p className='text-danger text-sm'>{error}</p> : ''}
       <button onClick={handleSubmit} className='p-1 mt-1 border rounded bg-secondary'>Create Referral</button>
     </form>
   )

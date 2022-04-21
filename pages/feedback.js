@@ -45,7 +45,7 @@ export default function Feedback({}) {
               value={feedback}
               onChange={handleChange}
             />
-            <p className="text-red-500 text-sm">{ error }</p>
+            <p className="text-danger text-sm">{ error }</p>
             <button type="submit" className="m-2 p-2 bg-secondary rounded">Submit</button>
           </form>
         </>}

@@ -247,4 +247,19 @@ VALUES (8, 2);
 
 INSERT INTO `OrganisationStaff`
 VALUES (9, 2);
+
+INSERT INTO `StockUnit` (`UnitId`, `UnitName`, `UnitSize`) VALUES
+(1,	'Bread',	'1 Loaf'),
+(2,	'Milk',	'1 Pint'),
+(3,	'Eggs',	'6 Eggs'),
+(4,	'Chicken',	'1 Chicken'),
+(5,	'Tinned Soup',	'1 Tin'),
+(6,	'Tinned Baked Beans',	'1 Tin'),
+(7,	'Cabbage',	'1 Cabbage'),
+(8,	'Carrot',	'1 Carrot'),
+(9,	'Apple',	'1 Apple'),
+(10,	'Orange',	'1 Orange'),
+(11,	'Banana',	'1 Banana'),
+(12,	'Peas',	'1 Tin of Peas');
+
 -- 2022-03-09 10:44:48

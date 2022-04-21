@@ -24,15 +24,15 @@ export default function Parcels({}) {
       <Head>
         <title>Available Parcels</title>
       </Head>
-      <div className='m-2 flex flex-col items-center'>
-        <h1 className='text-xl font-bold mb-1'>Parcels</h1>
+      <div className='m-2 flex flex-col'>
+        <h1 className='text-xl font-bold mb-1 text-center'>Parcels</h1>
         { !data ? <p>Loading...</p> :
-        <table className='border border-collapse text-center table-fixed'>
+        <table className='border border-collapse text-center sm:table-fixed'>
           <thead>
             <tr>
-              <th className="border p-2 w-auto">ID</th>
-              <th className="border p-2 w-full">Details</th>
-              <th className='border p-2 w-auto'>Complete?</th>
+              <th className="border p-2 sm:w-auto">ID</th>
+              <th className="border p-2 sm:w-full">Details</th>
+              <th className='border p-2 sm:w-auto'>Complete?</th>
             </tr>
           </thead>
           <tbody>

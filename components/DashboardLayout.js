@@ -42,7 +42,7 @@ export default function DashboardLayout({ children }) {
 
   return (
     <Layout mainStyling='flex flex-col grow'>
-      <div className='h-full grow grid grid-cols-[50px_auto] md:grid-cols-[175px_auto] grid-rows-1'>
+      <div style={{ 'height': 'calc(100vh - 65px)'}} className='h-full grow grid grid-cols-[50px_auto] md:grid-cols-[175px_auto] grid-rows-1'>
         <div className='flex flex-col border-r md:pr-1'>
           { Object.entries(viewedApps).map(([name, app]) => (
             <Link key={name} href={app.href}>

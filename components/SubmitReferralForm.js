@@ -52,7 +52,7 @@ export default function SubmitReferralForm({ onSuccess, onError }) {
     <form className='flex flex-col'>
       <label>Redeem Referral Code</label>
       <input ref={inputRef} type='text' value={code} onChange={handleChange} className='font-mono text-center border rounded p-1 my-1'></input>
-      { error ? <p className='text-red-600 text-sm'>{error}</p> : ''}
+      { error ? <p className='text-danger text-sm'>{error}</p> : ''}
       <button onClick={handleSubmit} className='p-1 mt-1 border rounded bg-secondary'>Redeem</button>
     </form>
   )

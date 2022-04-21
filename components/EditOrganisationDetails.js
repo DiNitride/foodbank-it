@@ -57,7 +57,7 @@ export default function EditOrganisationDetails({ organisation, onEdit, onError 
       <input className="p-1 border rounded w-full" name='phone' value={details.phone} onChange={handleChange} />
       <label className='underline my-1'>Description:</label>
       <textarea className='border rounded-xl p-3' name='description' rows={10} cols={50} value={details.description} onChange={handleChange} />
-      <p className="text-red-500 text-sm text-center my-1">{ error }</p>
+      <p className="text-danger text-sm text-center my-1">{ error }</p>
       <button className='p-2 mt-1 rounded bg-secondary' onClick={handleSubmit}>Save</button>
     </form>
   )
