@@ -28,7 +28,7 @@ export default function Organisations({}) {
         <title>Organisations</title>
       </Head>
       <div className='m-2 flex flex-col'>
-        <h1 className='text-xl font-bold text-center'>Organisations</h1>
+        <h1 className='text-xl font-bold underline text-center mb-2'>Organisations</h1>
         <h2 className='underline mb-2'>Applications</h2>
         { !dataApplications || dataApplications.length === 0 ? <p>No pending applications</p> :
         <table className='border-collapse border'>

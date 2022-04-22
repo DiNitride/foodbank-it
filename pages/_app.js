@@ -5,7 +5,7 @@ import { SWRConfig } from 'swr'
 import "react-datepicker/dist/react-datepicker.css";
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faBox, faBuilding, faCheck, faComment, faEnvelope, faFloppyDisk, faMoneyBill, faPenToSquare, faPhone, faSquarePlus, faStore, faTicket, faTrash, faUserGroup, faUserTie, faXmark } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faBox, faBuilding, faCheck, faComment, faEnvelope, faFloppyDisk, faMoneyBill, faPenToSquare, faPhone, faSquareMinus, faSquarePlus, faStore, faTicket, faTrash, faUserGroup, faUserTie, faXmark } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
  faBars,
@@ -24,7 +24,8 @@ library.add(
  faPenToSquare,
  faFloppyDisk,
  faComment,
- faUserTie
+ faUserTie,
+ faSquareMinus
 )
 
 // https://next-auth.js.org/getting-started/example

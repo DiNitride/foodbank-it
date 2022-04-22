@@ -128,7 +128,7 @@ export default function Apply() {
         { errors !== [] ? errors.map((error, i) => (
           <p key={i} className='text text-danger text-center p-2'>{ error }</p>
         )) : ""}
-        <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Apply</button>
+        <button className='m-2 p-3 border rounded-xl bg-secondary' type='submit'>Apply</button>
       </form>
       :
       <div className='border p-5 rounded-xl text-center'>

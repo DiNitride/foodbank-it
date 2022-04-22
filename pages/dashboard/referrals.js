@@ -24,7 +24,7 @@ export default function Referrals({}) {
         <title>Referrals</title>
       </Head>
       <div className='m-2 flex flex-col'>
-        <h1 className='text-xl font-bold text-center mb-2'>Open Referrals</h1>
+        <h1 className='text-xl font-bold underline text-center mb-2'>Open Referrals</h1>
         { !referrals ? <p>Loading...</p> :
         <table className='border border-collapse'>
           <thead>

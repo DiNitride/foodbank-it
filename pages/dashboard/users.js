@@ -31,7 +31,7 @@ export default function Users({}) {
         <title>Users</title>
       </Head>
       <div className='m-2 flex flex-col'>
-        <h1 className='text-xl font-bold text-center'>Users</h1>
+        <h1 className='text-xl font-bold underline text-center mb-2'>Users</h1>
         { !users ? <p>Loading...</p> :
         <table className='border border-collapse'>
           <thead>

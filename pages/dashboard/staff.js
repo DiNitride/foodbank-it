@@ -36,7 +36,7 @@ export default function Staff({}) {
         <title>Staff</title>
       </Head>
       <div className='m-2 flex flex-col'>
-        <h1 className='text-xl font-bold text-center'>Staff</h1>
+        <h1 className='text-xl font-bold underline text-center mb-2'>Staff</h1>
         { !staff ? <p>Loading...</p> :
         <table className='border text-center border-collapse table-fixed'>
           <thead>

@@ -103,7 +103,7 @@ export default function Register() {
         <FormItem onChange={handleChange} type='text' label='Postcode' name='address_postcode' value={user.address_postcode} placeholder='' required />
         <FormItem onChange={handleChange} type='text' label='Phone' name='phone' value={user.phone} placeholder='' required />
         { errors.map((error) => (<p className='text text-danger text-center p-2'>{ error }</p>)) }
-        <button className='m-2 p-3 border rounded-xl bg-emerald-400' type='submit'>Register Account</button>
+        <button className='m-2 p-3 border rounded-xl bg-secondary' type='submit'>Register Account</button>
       </form>
       :
       <div className='m-2 border p-5 rounded-xl text-center'>

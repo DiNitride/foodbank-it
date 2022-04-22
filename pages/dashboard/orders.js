@@ -24,7 +24,7 @@ export default function Orders({}) {
         <title>Orders</title>
       </Head>
       <div className='m-2 flex flex-col'>
-        <h1 className='text-xl font-bold text-center mb-2'>Orders</h1>
+        <h1 className='text-xl font-bold underline text-center mb-2'>Orders</h1>
         { !data ? <p>Loading...</p> :
         <table className='border border-collapse'>
           <thead>

@@ -1,6 +1,6 @@
 import api from "../../../lib/api"
 import db from "../../../lib/db"
-import { getStock, getStockByUnit, insertStock } from "../../../lib/stock"
+import { getStock, getStockByUnit, insertStock, getUnassignedStock, getUnassignedStockByUnit } from "../../../lib/stock"
 
 export default api({
   'GET': {
@@ -16,13 +16,22 @@ export default api({
 })
 
 async function get(req, res, session) {
-  let { unit } = req.query
+  let { unit, filter } = req.query
   let stock
-  if (unit) {
-    stock = await getStockByUnit(unit)
+  if (filter === 'unassigned') {
+    if (unit) {
+      stock = await getUnassignedStockByUnit(unit)
+    } else {
+      stock = await getUnassignedStock()
+    }
   } else {
-    stock = await getStock()
+    if (unit) {
+      stock = await getStockByUnit(unit)
+    } else {
+      stock = await getStock()
+    }
   }
+  
   res.json(stock)
 }
 

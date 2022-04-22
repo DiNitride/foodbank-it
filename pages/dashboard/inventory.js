@@ -33,7 +33,7 @@ export default function Inventory({}) {
         <title>Inventory</title>
       </Head>
       <div className='m-2 flex flex-col'>
-        <h1 className='text-xl font-bold text-center'>Inventory</h1>
+        <h1 className='text-xl font-bold underline text-center mb-2'>Inventory</h1>
         <div className='flex justify-between my-2'>
           <div className="flex">
             <div className="rounded p-1 bg-secondary cursor-pointer" onClick={() => {setAddStockModal(true)}}><FontAwesomeIcon icon='square-plus' size='lg' /> Add Stock</div>
@@ -54,6 +54,7 @@ export default function Inventory({}) {
                 <th className="p-1 border">Stock ID</th>
                 <th className="p-1 border">Stock Type</th>
                 <th className="p-1 border">Use By</th>
+                <th className="p-1 border">Parcel</th>
                 <th className="p-1 border hidden sm:table-cell">Added On</th>
                 <th className="p-1 border hidden sm:table-cell">Added By</th>
                 <th className="p-1 border w-auto"></th>
@@ -68,6 +69,7 @@ export default function Inventory({}) {
                 <td className="p-2 border">{ item.StockId }</td>  
                 <td className="p-2 border">{ item.UnitName }</td>  
                 <td className="p-2 border">{ item.PrettyUseBy }</td>
+                <td className="p-2 border">{ item.ParcelId ? item.ParcelId : '-' }</td>
                 <td className="p-2 border hidden sm:table-cell">{ item.PrettyCreatedOn }</td>
                 <td className="p-2 border hidden sm:table-cell">{ item.CreatedByForename } { item.CreatedBySurname }</td>
                 <td className='p-2 border cursor-pointer' onClick={() => handleDelete(item.StockId)}><FontAwesomeIcon icon='trash' /></td>  

@@ -23,7 +23,7 @@ export default function AdminResetPasswordForm({ userId, onSuccess }) {
 
   return (
     <form>
-      <h1 className="text-center text-lg underline mb-2">Reset Users Password {userId }</h1>
+      <h1 className="text-center text-lg underline mb-2">Reset Users Password</h1>
       <input className="p-2 rounded-lg border mr-1" placeholder="New Password" type='password' value={password} onChange={(e) => setPassword(e.target.value)}></input>
       <button className='p-2 rounded-lg bg-secondary ml-1' onClick={() => handleSubmit()}>Reset Password</button>
       <p className='text-sm text-danger text-center mt-2'>{ error }</p>
