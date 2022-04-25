@@ -1,6 +1,5 @@
 import Layout from '../../components/Layout'
 import Head from 'next/head'
-import { PaymentElement } from '@stripe/react-stripe-js'
 
 export default function Donate() {
   return (
