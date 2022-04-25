@@ -59,7 +59,7 @@ let handleSubmit = async (e) => {
       <select className="p-1 rounded w-full bg-secondary" name='unit' value={details.unit} onChange={handleChange}>
         { !units ? <option disabled>Loading</option> : <>
           <option value='' disabled>Select Unit Type</option>
-          { units && units.map((unit) => <option value={unit.UnitId}>{ unit.UnitName } ({ unit.UnitSize })</option>)}
+          { units && units.map((unit) => <option key={unit.UnitId} value={unit.UnitId}>{ unit.UnitName } ({ unit.UnitSize })</option>)}
         </> }
       </select>
       <label className="my-1 block">Use By</label>

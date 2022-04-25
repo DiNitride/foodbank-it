@@ -62,7 +62,7 @@ export default function Layout({ mainStyling, children }) {
     return () => {
       document.removeEventListener('mousedown', handleClick)
     }
-  }, [navBarRef])
+  }, [navBarRef, menuOpen, toggleMenu])
 
   return (
     <div className="min-h-screen flex flex-col space-between bg-primary">

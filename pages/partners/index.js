@@ -29,7 +29,7 @@ export default function Partners() {
           Cras non elit non turpis commodo semper eu quis nisi.
         </p>
         <Link href='/partners/apply'>
-          <div className='cursor-pointer p-3 mt-5 rounded-xl bg-secondary text-center'>Application Form</div>
+          <a className='block cursor-pointer p-3 mt-5 rounded-xl bg-secondary text-center'>Application Form</a>
         </Link>
       </div>
     </Layout>

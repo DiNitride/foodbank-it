@@ -29,7 +29,7 @@ export default function Parcels({ parcels }) {
             </thead>
             <tbody>
               { parcels.map((parcel) => (
-                <tr>
+                <tr key={parcel.ParcelId}>
                   <td className='p-1 border '>{ parcel.ParcelId }</td>
                   <td className='p-1 border text-left whitespace-pre'>{ parcel.ParcelDetails }</td>
                 </tr>

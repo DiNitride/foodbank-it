@@ -37,7 +37,7 @@ export default function Referrals({}) {
           </thead>
           <tbody>
             {referrals.map((referral) => {
-              return <tr>
+              return <tr key={referral.CodeId}>
                 <td className='border p-2'>{ referral.Code }</td>
                 <td className='border p-2'>{ referral.AssignedName }</td>
                 <td className='border p-2'>{ referral.Redeemed ? 'Yes' : 'No' }</td>

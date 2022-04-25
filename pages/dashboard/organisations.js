@@ -65,7 +65,7 @@ export default function Organisations({}) {
           </thead>
           <tbody>
             {dataOrganisations.map((organisation) => {
-              return <tr>
+              return <tr key={organisation.OrganisationId}>
                 <td className='border p-2'>{ organisation.OrganisationName }</td>
                 <td className='border p-2'>{ prettyType[organisation.OrganisationType] }</td>
                 <td className='border p-2'>{ organisation.OrganisationManagerForename } { organisation.OrganisationApplicantSurname }</td>

@@ -25,7 +25,7 @@ export default function Donations({}) {
               <th className='border'>Organisation</th>
               <th className='border'>User</th>
               <th className='border'>Donation</th>
-              <th classNAme='border'>Recieved</th>
+              <th className='border'>Recieved</th>
             </tr>
           </thead>
           <tbody>

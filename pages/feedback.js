@@ -36,7 +36,7 @@ export default function Feedback({}) {
           <h1 className='m-5 text-xl underline'>Thanks for your feedback!</h1>
         </> : <>
           <h1 className="text-xl underline">Submit Feedback</h1>
-          <p>We'd love to hear your feedback on how we can improve our service</p>
+          <p>We&apos;d love to hear your feedback on how we can improve our service</p>
           <form onSubmit={handleSubmit} className='flex flex-col'>
             <textarea
               className="rounded-xl p-3 m-2 border"

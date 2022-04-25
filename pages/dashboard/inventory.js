@@ -43,7 +43,7 @@ export default function Inventory({}) {
             { filterUnit !== '' ? <div className="p-1 mx-2 bg-secondary rounded-lg cursor-pointer" onClick={() => setFilterUnit('')}>Clear Filter <FontAwesomeIcon icon='xmark' /></div> : '' }
             <select className="w-[200px] p-1 rounded bg-secondary" value={filterUnit} onChange={(e) => setFilterUnit(e.target.value)}>
               <option value=''>Filter</option>
-              { units && units.map((unit) => <option value={unit.UnitId}>{ unit.UnitName }</option>)}
+              { units && units.map((unit) => <option key={unit.UnitId} value={unit.UnitId}>{ unit.UnitName }</option>)}
             </select>
           </div>
         </div>
@@ -62,10 +62,8 @@ export default function Inventory({}) {
             </thead>
             <tbody>
               { stock.reduce((arr, stock) => {
-                console.log(filterUnit)
-                console.log(stock.UnitId)
                 return filterUnit === '' || stock.UnitId == filterUnit ? [ ...arr, stock ] : arr 
-              }, []).map((item) => <tr>
+              }, []).map((item) => <tr key={item.UnitId}>
                 <td className="p-2 border">{ item.StockId }</td>  
                 <td className="p-2 border">{ item.UnitName }</td>  
                 <td className="p-2 border">{ item.PrettyUseBy }</td>

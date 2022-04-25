@@ -27,7 +27,7 @@ export default function UserList() {
       <tbody>
         { users.map((user) => {
           return (
-            <tr>
+            <tr> key={user.UserId}
               <td className='border p-1'>{ user.userId }</td>
               <td className='border p-1'>{ user.forename }</td>
               <td className='border p-1'>{ user.surname }</td>

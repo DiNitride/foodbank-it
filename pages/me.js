@@ -11,7 +11,7 @@ import DeleteAccountForm from "../components/DeleteAccountForm";
 import EditOrgManagerForm from "../components/EditOrgManagerForm";
 import reloadSession from '../lib/session'
 
-export default function me({}) {
+export default function Me({}) {
   let { data: session, status } = useSession()
   let [passwordModalOpen, setPasswordModalOpen] = useState(false)
   let [detailsModalOpen, setDetailsModalOpen] = useState(false)
