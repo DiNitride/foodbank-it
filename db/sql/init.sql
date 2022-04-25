@@ -163,11 +163,11 @@ CREATE TABLE `StockUnit` (
 -- Create default admin user and test staff
 INSERT INTO `User`
 VALUES (NULL, 'Admin', 'User', 'admin', '$argon2i$v=19$m=4096,t=3,p=1$5+8s4QLjPhCKY7ObJ+aS1Q$H5aJsO4H+UnU0PXgP4hleY55pAfzS8QA85oTxfrDcPQ');
-INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 1);
+INSERT INTO `Staff` VALUES (LAST_INSERT_ID(), 1);
 
 INSERT INTO `User`
 VALUES (NULL, 'Ross', 'Smith', 'ross.smith', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
-INSERT INTO `staff` VALUES (LAST_INSERT_ID(), 0);
+INSERT INTO `Staff` VALUES (LAST_INSERT_ID(), 0);
 
 -- Test clients
 INSERT INTO `User`
