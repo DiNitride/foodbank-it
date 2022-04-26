@@ -7,6 +7,7 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
+DROP DATABASE IF EXISTS `foodbank`;
 CREATE DATABASE `foodbank` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `foodbank`;
 
@@ -173,17 +174,17 @@ INSERT INTO `Staff` VALUES (LAST_INSERT_ID(), 0);
 INSERT INTO `User`
 VALUES (NULL, 'Jamie', 'Roberts', 'jamie.roberts.61', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY237BC', '07888222111', 'joe@example.com');
+VALUES (LAST_INSERT_ID(), '4 Big House', 'My Road', 'Aberystwyth', 'SY237BC', '07888222111', 'jamie.roberts@example.com');
 
 INSERT INTO `User`
 VALUES (NULL, 'Samantha', 'May', 'samantha.may.23', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY235DF', '07111222333', 'alex@example.com');
+VALUES (LAST_INSERT_ID(), '2 Street', 'Fferm Penglais', 'Aberystwyth', 'SY235DF', '07111222333', 'sam.may@example.com');
 
 INSERT INTO `User`
 VALUES (NULL, 'Alex', 'Milan', 'alex.milan.51', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 INSERT INTO `Client`
-VALUES (LAST_INSERT_ID(), '76 Road', 'Fferm Penglais', 'Aberystwyth', 'SY41A42', '07666555444', 'alex@example.com');
+VALUES (LAST_INSERT_ID(), '76 Road', 'Fferm Penglais', 'Aberystwyth', 'SY23A42', '07666555444', 'alex.milan@example.com');
 
 
 -- Supplier Org
@@ -209,7 +210,7 @@ VALUES (
 );
 
 INSERT INTO `User`
-VALUES (NULL, 'Gordon', 'Brown', 'gordon.brown.12', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
+VALUES (NULL, 'Gary', 'Brown', 'gary.brown.12', '$argon2i$v=19$m=4096,t=3,p=1$057bmM1aVML1Vnc1ejLrvg$A+tA7M73ydxi7ueYoOIeTHKpJJYcXOgO/+prFU3FnMY');
 
 INSERT INTO `OrganisationStaff`
 VALUES (6, 1);
