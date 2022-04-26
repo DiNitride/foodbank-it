@@ -23,8 +23,8 @@ export default async function handler(req, res) {
       },
     ],
     mode: 'payment',
-    success_url: 'http://localhost:3000/donate/success',
-    cancel_url: 'http://localhost:3000/',
+    success_url: process.env.STRIPE_SUCCESS_REDIRECT,
+    cancel_url: process.env.STRIPE_CANCEL_REDIRECT,
   });
 
   res.redirect(303, session.url);
