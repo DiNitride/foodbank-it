@@ -12,14 +12,15 @@ export default function Layout({ mainStyling, children }) {
 
   let navigationLinks = {
     'Donate': '/donate',
-    'Partners': '/partners'
+    'Partners': '/partners',
+    'Parcels': '/parcels',
+    'Feedback': '/feedback'
   }
 
   if (session && session.user.type === 'client') {
     navigationLinks = {
       ...navigationLinks,
-      'Orders': '/orders',
-      'Parcels': '/parcels'
+      'Orders': '/orders'
     }
   }
 

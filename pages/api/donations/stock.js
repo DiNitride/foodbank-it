@@ -1,4 +1,3 @@
-import { getSession } from "next-auth/react"
 import api from "../../../lib/api"
 import { getStockDonations, insertStockDonation } from "../../../lib/donations"
 

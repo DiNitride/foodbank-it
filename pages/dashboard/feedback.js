@@ -26,7 +26,7 @@ export default function Donations({}) {
   return (
     <DashboardLayout>
       <Head>
-        <title>Donations</title>
+        <title>Feedback</title>
       </Head>
       <div className='m-2 flex flex-col'>
         <h1 className='text-xl font-bold underline text-center mb-2'>Donations</h1>
@@ -49,7 +49,7 @@ export default function Donations({}) {
                 <td className='border p-2 text-center w-auto whitespace-nowrap cursor-pointer' onClick={() => handleReview(feedback.FeedbackId)}><FontAwesomeIcon icon={feedback.FeedbackReviewed ? 'check' : 'xmark'} /></td>
                 <td className='border p-2 text-center w-auto whitespace-nowrap'>{ feedback.UserForename } {feedback.UserSurname }</td>
               </tr>
-            }) : <tr><td colSpan={5} className="text-center border">No donations</td></tr> }
+            }) : <tr><td colSpan={5} className="text-center border">No Feedback</td></tr> }
           </tbody>
         </table>
         }

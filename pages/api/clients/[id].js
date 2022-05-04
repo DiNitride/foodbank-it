@@ -5,7 +5,7 @@ import { getClients, getOneClientById } from "../../../lib/clients";
 export default api({
   'GET': {
     authenticated: true,
-    roles: ['admin', 'client'],
+    roles: ['staff', 'client'],
     handler: get
   }
 })
