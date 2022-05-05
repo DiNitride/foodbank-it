@@ -28,11 +28,9 @@ library.add(
  faSquareMinus
 )
 
-// https://next-auth.js.org/getting-started/example
-// SWR config from https://swr.vercel.app/docs/data-fetching
 function MyApp({Component, pageProps: { session, ...pageProps }}) {
 
-  // https://swr.vercel.app/docs/error-handling#status-code-and-error-object
+  // Adapted from: https://swr.vercel.app/docs/error-handling#status-code-and-error-object
   let fetcher = async (url) => {
     let res = await fetch(url)
     if (!res.ok) {

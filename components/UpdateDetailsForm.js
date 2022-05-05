@@ -7,6 +7,7 @@ export default function UpdateDetailsForm({ user, onSuccess, onError }) {
   })
   let [error, setError] = useState('')
   let inputRef = useRef(null)
+  let validator = RegExp('^[a-zA-Z]+$')
 
   useEffect(() => {
     if (inputRef.current) {
@@ -22,6 +23,15 @@ export default function UpdateDetailsForm({ user, onSuccess, onError }) {
   }
 
   let handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!validator.test(details.forename)) {
+      setError('Invalid Forename')
+      return
+    }
+    if (!validator.test(details.surname)) {
+      setError('Invalid Forename')
+      return
+    }
     let r = await fetch(`/api/users/${user.UserId}`, {
       method: 'PATCH',
       body: JSON.stringify({ action: 'updateDetails', payload: details }),
