@@ -42,7 +42,8 @@ export default function Donate() {
       <div className='m-2 flex justify-center'>
         <div className='w-full md:w-[600px]'>
           <h1 className='underline text-xl text-center mb-2'>Financial Donations</h1>
-          <p>Donec vitae maximus risus, at aliquet nulla. Aliquam turpis lacus, consequat eget risus id, sagittis fermentum risus. Ut eu erat et quam suscipit gravida. In cursus risus sit amet lorem facilisis, at ultricies urna vehicula. Donec eu dui luctus, tincidunt ex in, accumsan felis. Aliquam erat volutpat. Nullam sed libero ornare, malesuada mauris vitae, aliquet nulla. </p>
+          <p>As a charity organisation, we rely on donations to stay afloat. Cash donations are the most effective way to support us directly, as they money can be spent where it is needed most. Donations can be made online via the form below.</p>
+          <p className='pt-2'>If you wish to donate physical items, please bring them to the address listed on the homepage, or leave at a local collection point with one of our partner organisations.</p>
           <form className='mt-2 p-2 rounded flex flex-col' action='/api/donations/create-payment-session'>
             <h2 className='text-center underline mb-1'>Make Donation</h2>
             <input className='p-3 border rounded' id='value' name='value' placeholder='20.00' value={value} onChange={onChange} onBlur={onFocusRemove}></input>

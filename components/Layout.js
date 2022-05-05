@@ -70,7 +70,7 @@ export default function Layout({ mainStyling, children }) {
       <div ref={navBarRef} className='w-full flex flex-col relative bg-primary z-10 top-0 md:flex-row md:justify-between shadow'>
         <div className='flex justify-between border-b md:border-b-0 p-2 items-center '>
           <div>
-            <h1 className="text-xl"><Link href='/'>Foodbank Management System</Link></h1>
+            <h1 className="text-xl"><Link href='/'>Aberystwyth Foodbank</Link></h1>
           </div>
           <button onClick={toggleMenu} className='md:hidden'><FontAwesomeIcon className={`p-2 rounded hover:shadow hover:bg-secondary size='lg'`} icon='bars' /></button>
         </div>

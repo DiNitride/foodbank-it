@@ -8,6 +8,11 @@ export default async function handler(req, res) {
   if (!RegExp('^[0-9]+$').test(value)) {
     res.status(400).json({ error: 'Invalid donation value' })
   }
+
+  let valueCheck = Number.parseFloat(value)
+  if (!(valueCheck > 0)) {
+    res.redirect(303, '/donate')
+  }
   
   const session = await stripe.checkout.sessions.create({
     line_items: [
