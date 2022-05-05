@@ -45,18 +45,21 @@ export async function getServerSideProps(context) {
   let available = await getAvailableParcels()
 
   let orders = await getOrders()
-  let open = orders.reduce((order, open) => order.OrderStatus === 'open' ? [...open, order] : open, [])
-  let ready = orders.reduce((order, ready) => order.OrderStatus === 'ready' ? [...ready, order] : ready, [])
+  console.log(orders)
+  let open = orders.filter((order) => order.OrderStatus === 'open')
+  console.log(orders)
+  let ready = orders.filter((order) => order.OrderStatus === 'ready')
   console.log("HERE!!!!!!")
-  let closed = orders.reduce((order, closed) => order.OrderStatus === 'closed' ? [...closed, order] : closed, [])
+  console.log(orders)
+  let closed = orders.filter((order) => order.OrderStatus === 'closed')
 
   let feedback = await selectFeedback()
-  let unread = feedback.reduce((feedback, unread) => feedback.FeedbackReviewed ? unread : [...unread, feedback], [])
+  let unread = feedback.filter((feedback) => !feedback.FeedbackReviewed)
 
   let applications = await getUnapprovedOrganisations()
 
   return {
-    props: {
+    props: JSON.parse(JSON.stringify({
       noParcels: parcels.length,
       noAvailable: available.length,
       noOrders: orders.length,
@@ -65,6 +68,6 @@ export async function getServerSideProps(context) {
       noClosed: closed.length,
       unreadFeedback: unread.length,
       noApplications: applications.length
-    }
+    }))
   }
 }
