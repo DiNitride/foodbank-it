@@ -47,6 +47,7 @@ export async function getServerSideProps(context) {
   let orders = await getOrders()
   let open = orders.reduce((order, open) => order.OrderStatus === 'open' ? [...open, order] : open, [])
   let ready = orders.reduce((order, ready) => order.OrderStatus === 'ready' ? [...ready, order] : ready, [])
+  console.log("HERE!!!!!!")
   let closed = orders.reduce((order, closed) => order.OrderStatus === 'closed' ? [...closed, order] : closed, [])
 
   let feedback = await selectFeedback()

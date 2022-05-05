@@ -1,3 +1,4 @@
+import Head from "next/head"
 import { useState } from "react"
 import Layout from '../components/Layout'
 
@@ -32,6 +33,9 @@ export default function Feedback({}) {
   return (
     <Layout>
       <div className="m-2 w-full sm:w-[600px] text-center">
+        <Head>
+          <title>Feedback</title>
+        </Head>
         { submitted ? <>
           <h1 className='m-5 text-xl underline'>Thanks for your feedback!</h1>
         </> : <>
