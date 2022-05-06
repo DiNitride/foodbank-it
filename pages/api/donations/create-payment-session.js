@@ -2,6 +2,7 @@ import Stripe from "stripe";
 
 let stripe = Stripe(process.env.STRIPE_SECRET)
 
+// https://stripe.com/docs/payments/accept-a-payment?platform=web
 export default async function handler(req, res) {
   let { value } = req.query
   value = value.replace('.', '')
