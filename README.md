@@ -1,10 +1,20 @@
 # Foodbank Information Management System
 Final Year University Project at Aberystwyth University, by [James Bale](https://www.jamesbale.dev)
 
+## Structure
+`/components` - Re-usable React Components developed for use throughout website.
+`/db` - Database setup files. Contains `docker-compose.yml` that can be used to spin up a MariaDB instance using Docker. Initialisation SQL found in `/db/sql`
+`/documents` - Documents supporting the written report
+`/hooks` - Custom React hooks written
+`/lib` - Contains functions that interact with extenal services.
+`/mock-sms` - Web application for mocking SMS messages
+`/pages` - Page view files.
+`/pages/api` - API endpoint handlers
+
 ## Pre-requisites
-- MariaDB (Version >10.6)(Docker-compose setup file provided)
-- Node.js (>12.7.0) and NPM (>v8.5.0)
-- Docker, if using the provided docker-compose file to run DB
+- MariaDB (Version >10.6)(Docker-compose setup file provided) https://mariadb.org/
+- Node.js (>12.7.0) and NPM (>v8.5.0) https://nodejs.org/en/
+- Docker, if using the provided docker-compose file to run DB https://www.docker.com/
 
 ## Setup
 1. Clone Repo
