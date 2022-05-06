@@ -21,7 +21,11 @@ Final Year University Project at Aberystwyth University, by [James Bale](https:/
 The mock SMS application is located in the `mock-sms/` directory. To setup:
 1. `cd mock-sms`
 2. `npm install`
-3. `npm run dev`
-Copy the DB config from this projects .env file into an .env file inside `mock-sms/`. Configure this projects .env to point to the right url and port for the mock service. Run mock-sms/db/init.sql on your MariaDB instance to set up the required DB tables.
+3. Copy the DB config from this projects .env file into an .env file inside `mock-sms/`. Change DB_DATABASE variable to `mock-sms`.
+4. Configure this projects .env to point to the right url and port for the mock service.
+5. Run mock-sms/db/init.sql on your MariaDB instance to set up the required DB tables.
+6. `npm run dev`
+
+There are a few pre-set numbers onthe index page, however any number can be checked by simply appending it to the base url. E.g. to check 07546 123456 for mesages, navigate to: `http://localhost:3001/07546123456`
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result
