@@ -8,7 +8,6 @@ export default NextAuth({
     strategy: 'jwt',
     maxAge: 60 * 60 * 24 * 30
   },
-  // Configure one or more authentication providers
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -30,7 +29,6 @@ export default NextAuth({
         if (passwordCorrect) return user
       }
     })
-    // ...add more providers here
   ],
   callbacks: {
     async jwt({ token, user }) {
