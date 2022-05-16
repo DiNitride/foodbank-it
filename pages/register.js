@@ -35,7 +35,7 @@ export default function Register() {
     phone: RegExp('^[0-9]{10,11}$'),
     password: RegExp('^.*$'),
     address_line_one: RegExp('^[a-zA-Z0-9,\\s]+$'),
-    address_line_two: RegExp('^[a-zA-Z0-9,\\s]?$'),
+    address_line_two: RegExp('^[a-zA-Z0-9,\\s]*$'),
     address_town: RegExp('^[a-zA-Z]+$'),
     address_postcode: RegExp('^[a-zA-Z]{2}[0-9]{1,2}\\s?[0-9]{1}[a-zA-Z]{2}$'),
   }
