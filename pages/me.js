@@ -69,7 +69,7 @@ export default function Me({}) {
             <h2 className='text-xl text-center underline mb-2'>Actions</h2>
             
             <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Update Personal Details</button>
-            { user.type === 'client' ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setDetailsModalOpen(true)}>Update Contact Details</button> : '' }
+            {/* { user.type === 'client' ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => (true)}>Update Contact Details</button> : '' } */}
             <button className='p-1 border rounded bg-secondary my-1' onClick={() => setPasswordModalOpen(true)}>Update Password</button>
             { user.manager === true ? <button className='p-1 border rounded bg-secondary my-1' onClick={() => setTransferOwnershipModalOpen(true)}>Transfer Organisation Ownership</button> : '' }
             { user.type === 'client' ?<button className='p-1 border rounded bg-red-500 my-1' onClick={() => setDeleteModalOpen(true)}>Delete Account</button> : '' }

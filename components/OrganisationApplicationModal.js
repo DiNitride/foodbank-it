@@ -9,7 +9,9 @@ export default function OrganisationApplicationModal({ id, closeModal }) {
 
   let handleApprove = async (e) => {
     e.preventDefault()
-    let res = await fetch(`/api/organisations/approve/${id}`)
+    let res = await fetch(`/api/organisations/approve/${id}`, {
+      method: 'POST'
+    })
     closeModal()
   }
 
