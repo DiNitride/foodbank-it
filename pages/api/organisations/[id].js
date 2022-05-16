@@ -58,6 +58,7 @@ async function post(req, res, session) {
 }
 
 async function handler_delete(req, res, session) {
+  let { id } = req.query
   await deleteOrganisation(id)
   res.json({ success: true })
 }
