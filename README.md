@@ -1,5 +1,5 @@
 # Foodbank Information Management System
-Final Year University Project at Aberystwyth University, by [James Bale](https://www.jamesbale.dev)
+Final Year University Project at Aberystwyth University
 
 ## Structure
 `/components` - Re-usable React Components developed for use throughout website.
